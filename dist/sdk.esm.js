@@ -12,17 +12,17 @@ import { getNetwork } from '@ethersproject/networks';
 import { getDefaultProvider } from '@ethersproject/providers';
 
 var addresses = {
-	"7000": {
-	SwapFactory: "0xab8aEfe85faD683A6bDE16EeD04C3420C713324b",
-	Factory_Init_Code_Hash: "0x461a6049b13f321d3fd008cfd2dae29e1f8c433c5276c4ac81da76f64fe2c9d5",
-	SwapRouter: "0x7E2F79b816F584D1268D470c94989F180253B825",
-	WETH: "0x5300000000000000000000000000000000000004"
-},
 	"80084": {
 	WETH: "0x7507c1dc16935B82698e4C63f2746A2fCf994dF8",
 	SwapFactory: "0xe9a5C44078e0AcF37DEa305223b0E4548588431a",
 	Factory_Init_Code_Hash: "0x923ce0182ef1870d445bbca2703705efc8fae66c115a345d6f6c889e8c501bce",
 	SwapRouter: "0x0468f03624A0b36614F34F7Fa3b615e9F39E70E2"
+},
+	"80094": {
+	SwapFactory: "0x0468f03624A0b36614F34F7Fa3b615e9F39E70E2",
+	Factory_Init_Code_Hash: "0x74552ddbf61518254f579c76d197455e9757bb08fa082862882a8bbb3608107e",
+	SwapRouter: "0xfcF803EA09853929f04a46DD7A9C461450707cB1",
+	WETH: "0x6969696969696969696969696969696969696969"
 }
 };
 
@@ -30,7 +30,7 @@ var _SOLIDITY_TYPE_MAXIMA;
 var ChainId;
 
 (function (ChainId) {
-  ChainId[ChainId["MAINNET"] = 7000] = "MAINNET";
+  ChainId[ChainId["MAINNET"] = 80094] = "MAINNET";
   ChainId[ChainId["TESTNET"] = 80084] = "TESTNET";
 })(ChainId || (ChainId = {}));
 
@@ -49,7 +49,7 @@ var Rounding;
   Rounding[Rounding["ROUND_UP"] = 2] = "ROUND_UP";
 })(Rounding || (Rounding = {}));
 
-var DEFAULT_CHAIN_ID = ChainId.TESTNET;
+var DEFAULT_CHAIN_ID = ChainId.MAINNET;
 var FACTORY_ADDRESS = addresses[DEFAULT_CHAIN_ID].SwapFactory;
 var INIT_CODE_HASH = addresses[DEFAULT_CHAIN_ID].Factory_Init_Code_Hash;
 var MINIMUM_LIQUIDITY = /*#__PURE__*/JSBI.BigInt(1000); // exports for internal consumption
