@@ -17,25 +17,25 @@ var networks = require('@ethersproject/networks');
 var providers = require('@ethersproject/providers');
 
 var addresses = {
-	"80084": {
-	WETH: "0x7507c1dc16935B82698e4C63f2746A2fCf994dF8",
-	SwapFactory: "0xe9a5C44078e0AcF37DEa305223b0E4548588431a",
-	Factory_Init_Code_Hash: "0x923ce0182ef1870d445bbca2703705efc8fae66c115a345d6f6c889e8c501bce",
-	SwapRouter: "0x0468f03624A0b36614F34F7Fa3b615e9F39E70E2"
-},
-	"80094": {
+	"1514": {
 	SwapFactory: "0x0468f03624A0b36614F34F7Fa3b615e9F39E70E2",
 	Factory_Init_Code_Hash: "0xb014d4c854360ab88b2113bbff9a15354df822c1dcbeb5ab2a37c58adbe87ebe",
 	SwapRouter: "0xA14Cfba980cE1E3ceD55773644d47180857D26C7",
 	WETH: "0x6969696969696969696969696969696969696969"
+},
+	"1516": {
+	WETH: "0x7507c1dc16935B82698e4C63f2746A2fCf994dF8",
+	SwapFactory: "0xe9a5C44078e0AcF37DEa305223b0E4548588431a",
+	Factory_Init_Code_Hash: "0x923ce0182ef1870d445bbca2703705efc8fae66c115a345d6f6c889e8c501bce",
+	SwapRouter: "0x0468f03624A0b36614F34F7Fa3b615e9F39E70E2"
 }
 };
 
 var _SOLIDITY_TYPE_MAXIMA;
 
 (function (ChainId) {
-  ChainId[ChainId["MAINNET"] = 80094] = "MAINNET";
-  ChainId[ChainId["TESTNET"] = 80084] = "TESTNET";
+  ChainId[ChainId["MAINNET"] = 1514] = "MAINNET";
+  ChainId[ChainId["TESTNET"] = 1516] = "TESTNET";
 })(exports.ChainId || (exports.ChainId = {}));
 
 (function (TradeType) {
@@ -49,7 +49,7 @@ var _SOLIDITY_TYPE_MAXIMA;
   Rounding[Rounding["ROUND_UP"] = 2] = "ROUND_UP";
 })(exports.Rounding || (exports.Rounding = {}));
 
-var DEFAULT_CHAIN_ID = exports.ChainId.MAINNET;
+var DEFAULT_CHAIN_ID = exports.ChainId.TESTNET;
 var FACTORY_ADDRESS = addresses[DEFAULT_CHAIN_ID].SwapFactory;
 var INIT_CODE_HASH = addresses[DEFAULT_CHAIN_ID].Factory_Init_Code_Hash;
 var MINIMUM_LIQUIDITY = /*#__PURE__*/JSBI.BigInt(1000); // exports for internal consumption
@@ -451,7 +451,7 @@ function currencyEquals(currencyA, currencyB) {
     return currencyA === currencyB;
   }
 }
-var WETH = (_WETH = {}, _WETH[exports.ChainId.MAINNET] = /*#__PURE__*/new Token(exports.ChainId.MAINNET, addresses[exports.ChainId.MAINNET].WETH, 18, 'WBERA', 'Wrapped Bera', 'https://bartio.beratrail.io'), _WETH[exports.ChainId.TESTNET] = /*#__PURE__*/new Token(exports.ChainId.TESTNET, addresses[exports.ChainId.TESTNET].WETH, 18, 'WBERA', 'Wrapped Bera', 'https://bartio.beratrail.io'), _WETH);
+var WETH = (_WETH = {}, _WETH[exports.ChainId.MAINNET] = /*#__PURE__*/new Token(exports.ChainId.MAINNET, addresses[exports.ChainId.MAINNET].WETH, 18, 'WIP', 'Wrapped IP', 'https://bartio.beratrail.io'), _WETH[exports.ChainId.TESTNET] = /*#__PURE__*/new Token(exports.ChainId.TESTNET, addresses[exports.ChainId.TESTNET].WETH, 18, 'WBERA', 'Wrapped Bera', 'https://bartio.beratrail.io'), _WETH);
 
 var _toSignificantRoundin, _toFixedRounding;
 var Decimal = /*#__PURE__*/toFormat(_Decimal);
@@ -774,7 +774,7 @@ var Pair = /*#__PURE__*/function () {
   function Pair(tokenAmountA, tokenAmountB) {
     var tokenAmounts = tokenAmountA.token.sortsBefore(tokenAmountB.token) // does safety checks
     ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
-    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'BRS-LP', 'Beraswap LPs');
+    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, "TLS-LP", "Taleswap LPs");
     this.tokenAmounts = tokenAmounts;
   }
 
