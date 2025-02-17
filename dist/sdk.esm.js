@@ -16,9 +16,9 @@ var addresses = {
 	SwapFactory: "0x0468f03624A0b36614F34F7Fa3b615e9F39E70E2",
 	Factory_Init_Code_Hash: "0xb014d4c854360ab88b2113bbff9a15354df822c1dcbeb5ab2a37c58adbe87ebe",
 	SwapRouter: "0xA14Cfba980cE1E3ceD55773644d47180857D26C7",
-	WETH: "0x6969696969696969696969696969696969696969"
+	WETH: "0x1514000000000000000000000000000000000000"
 },
-	"1516": {
+	"15000": {
 	WETH: "0x7507c1dc16935B82698e4C63f2746A2fCf994dF8",
 	SwapFactory: "0xe9a5C44078e0AcF37DEa305223b0E4548588431a",
 	Factory_Init_Code_Hash: "0x923ce0182ef1870d445bbca2703705efc8fae66c115a345d6f6c889e8c501bce",
@@ -31,7 +31,7 @@ var ChainId;
 
 (function (ChainId) {
   ChainId[ChainId["MAINNET"] = 1514] = "MAINNET";
-  ChainId[ChainId["TESTNET"] = 1516] = "TESTNET";
+  ChainId[ChainId["TESTNET"] = 15000] = "TESTNET";
 })(ChainId || (ChainId = {}));
 
 var TradeType;
@@ -451,7 +451,7 @@ function currencyEquals(currencyA, currencyB) {
     return currencyA === currencyB;
   }
 }
-var WETH = (_WETH = {}, _WETH[ChainId.MAINNET] = /*#__PURE__*/new Token(ChainId.MAINNET, addresses[ChainId.MAINNET].WETH, 18, 'WIP', 'Wrapped IP', 'https://bartio.beratrail.io'), _WETH[ChainId.TESTNET] = /*#__PURE__*/new Token(ChainId.TESTNET, addresses[ChainId.TESTNET].WETH, 18, 'WBERA', 'Wrapped Bera', 'https://bartio.beratrail.io'), _WETH);
+var WETH = (_WETH = {}, _WETH[ChainId.MAINNET] = /*#__PURE__*/new Token(ChainId.MAINNET, addresses[ChainId.MAINNET].WETH, 18, 'WIP', 'Wrapped IP', 'https://www.storyscan.xyz'), _WETH[ChainId.TESTNET] = /*#__PURE__*/new Token(ChainId.TESTNET, addresses[ChainId.TESTNET].WETH, 18, 'WQUAI', 'Wrapped QUAI', 'https://orchard.quaiscan.io'), _WETH);
 
 var _toSignificantRoundin, _toFixedRounding;
 var Decimal = /*#__PURE__*/toFormat(_Decimal);

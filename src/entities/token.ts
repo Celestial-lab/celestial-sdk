@@ -79,8 +79,8 @@ export const WETH = {
     ChainId.TESTNET,
     addresses[ChainId.TESTNET].WETH,
     18,
-    'WIP',
-    'Wrapped IP',
-    'https://www.storyscan.xyz/'
+    'WQUAI',
+    'Wrapped QUAI',
+    'https://orchard.quaiscan.io'
   )
 }
