@@ -71,9 +71,9 @@ export const WETH = {
     ChainId.MAINNET,
     addresses[ChainId.MAINNET].WETH,
     18,
-    'WIP',
-    'Wrapped IP',
-    'https://www.storyscan.xyz'
+    'WQUAI',
+    'Wrapped QUAI',
+    'https://quaiscan.io'
   ),
   [ChainId.TESTNET]: new Token(
     ChainId.TESTNET,

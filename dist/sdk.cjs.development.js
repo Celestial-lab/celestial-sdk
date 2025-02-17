@@ -17,7 +17,7 @@ var networks = require('@ethersproject/networks');
 var providers = require('@ethersproject/providers');
 
 var addresses = {
-	"1514": {
+	"9": {
 	SwapFactory: "0x0468f03624A0b36614F34F7Fa3b615e9F39E70E2",
 	Factory_Init_Code_Hash: "0xb014d4c854360ab88b2113bbff9a15354df822c1dcbeb5ab2a37c58adbe87ebe",
 	SwapRouter: "0xA14Cfba980cE1E3ceD55773644d47180857D26C7",
@@ -34,7 +34,7 @@ var addresses = {
 var _SOLIDITY_TYPE_MAXIMA;
 
 (function (ChainId) {
-  ChainId[ChainId["MAINNET"] = 1514] = "MAINNET";
+  ChainId[ChainId["MAINNET"] = 9] = "MAINNET";
   ChainId[ChainId["TESTNET"] = 15000] = "TESTNET";
 })(exports.ChainId || (exports.ChainId = {}));
 
@@ -49,7 +49,7 @@ var _SOLIDITY_TYPE_MAXIMA;
   Rounding[Rounding["ROUND_UP"] = 2] = "ROUND_UP";
 })(exports.Rounding || (exports.Rounding = {}));
 
-var DEFAULT_CHAIN_ID = exports.ChainId.TESTNET;
+var DEFAULT_CHAIN_ID = exports.ChainId.MAINNET;
 var FACTORY_ADDRESS = addresses[DEFAULT_CHAIN_ID].SwapFactory;
 var INIT_CODE_HASH = addresses[DEFAULT_CHAIN_ID].Factory_Init_Code_Hash;
 var MINIMUM_LIQUIDITY = /*#__PURE__*/JSBI.BigInt(1000); // exports for internal consumption
@@ -451,7 +451,7 @@ function currencyEquals(currencyA, currencyB) {
     return currencyA === currencyB;
   }
 }
-var WETH = (_WETH = {}, _WETH[exports.ChainId.MAINNET] = /*#__PURE__*/new Token(exports.ChainId.MAINNET, addresses[exports.ChainId.MAINNET].WETH, 18, 'WIP', 'Wrapped IP', 'https://www.storyscan.xyz'), _WETH[exports.ChainId.TESTNET] = /*#__PURE__*/new Token(exports.ChainId.TESTNET, addresses[exports.ChainId.TESTNET].WETH, 18, 'WQUAI', 'Wrapped QUAI', 'https://orchard.quaiscan.io'), _WETH);
+var WETH = (_WETH = {}, _WETH[exports.ChainId.MAINNET] = /*#__PURE__*/new Token(exports.ChainId.MAINNET, addresses[exports.ChainId.MAINNET].WETH, 18, 'WQUAI', 'Wrapped QUAI', 'https://quaiscan.io'), _WETH[exports.ChainId.TESTNET] = /*#__PURE__*/new Token(exports.ChainId.TESTNET, addresses[exports.ChainId.TESTNET].WETH, 18, 'WQUAI', 'Wrapped QUAI', 'https://orchard.quaiscan.io'), _WETH);
 
 var _toSignificantRoundin, _toFixedRounding;
 var Decimal = /*#__PURE__*/toFormat(_Decimal);
