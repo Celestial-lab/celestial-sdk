@@ -73,7 +73,7 @@ export const WETH = {
     18,
     'WIP',
     'Wrapped IP',
-    'https://bartio.beratrail.io'
+    'https://www.storyscan.xyz'
   ),
   [ChainId.TESTNET]: new Token(
     ChainId.TESTNET,
@@ -81,6 +81,6 @@ export const WETH = {
     18,
     'WIP',
     'Wrapped IP',
-    'https://bartio.beratrail.io'
+    'https://www.storyscan.xyz/'
   )
 }
