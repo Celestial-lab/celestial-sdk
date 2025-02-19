@@ -71,16 +71,16 @@ export const WETH = {
     ChainId.MAINNET,
     addresses[ChainId.MAINNET].WETH,
     18,
-    'WBERA',
-    'Wrapped Bera',
+    'WMON',
+    'Wrapped Monad',
     'https://bartio.beratrail.io'
   ),
   [ChainId.TESTNET]: new Token(
     ChainId.TESTNET,
     addresses[ChainId.TESTNET].WETH,
     18,
-    'WBERA',
-    'Wrapped Bera',
-    'https://bartio.beratrail.io'
+    'WMON',
+    'Wrapped Monad',
+    'https://testnet.monadexplorer.com'
   )
 }
