@@ -18,16 +18,16 @@ var providers = require('@ethersproject/providers');
 
 var addresses = {
 	"7000": {
-	SwapFactory: "0xc6ef2008a5a717329648420F429dA53d3351cF5E",
-	Factory_Init_Code_Hash: "0xc245af4fa6f1a0c19e8d9c97d5554188ac0e1c296e4085890c7144387fddf0fa",
-	SwapRouter: "0xe54Fd41E0ADc21609cAe88C35645b6EfFF24ea4b",
-	WETH: "0x5F0b1a82749cb4E2278EC87F8BF6B618dC71a8bf"
+	SwapFactory: "0xb7193f5FD04A9d9823D4330E30e174034ddAa5bc",
+	Factory_Init_Code_Hash: "0xe86662e96900e4449b44f18d0d14562cfbbf80ea5ad7b3defafb60c945bfaadf",
+	SwapRouter: "0xD49C337715128e79868d9AC18C4227e91156108F",
+	WZETA: "0x5F0b1a82749cb4E2278EC87F8BF6B618dC71a8bf"
 },
 	"7001": {
-	WETH: "0x5F0b1a82749cb4E2278EC87F8BF6B618dC71a8bf",
-	SwapFactory: "0xF1458D32951b6b1A7366bc3da24C3F9652117a37",
-	Factory_Init_Code_Hash: "0xc245af4fa6f1a0c19e8d9c97d5554188ac0e1c296e4085890c7144387fddf0fa",
-	SwapRouter: "0x870D1FB34b3370477E2B25f21E0C09332bcC033A"
+	WZETA: "0x5F0b1a82749cb4E2278EC87F8BF6B618dC71a8bf",
+	SwapFactory: "0xb7193f5FD04A9d9823D4330E30e174034ddAa5bc",
+	Factory_Init_Code_Hash: "0xe86662e96900e4449b44f18d0d14562cfbbf80ea5ad7b3defafb60c945bfaadf",
+	SwapRouter: "0xD49C337715128e79868d9AC18C4227e91156108F"
 }
 };
 
@@ -451,7 +451,7 @@ function currencyEquals(currencyA, currencyB) {
     return currencyA === currencyB;
   }
 }
-var WETH = (_WETH = {}, _WETH[exports.ChainId.MAINNET] = /*#__PURE__*/new Token(exports.ChainId.MAINNET, addresses[exports.ChainId.MAINNET].WETH, 18, 'WZETA', 'Wrapped ZETA', 'https://zetachain.blockscout.com/'), _WETH[exports.ChainId.TESTNET] = /*#__PURE__*/new Token(exports.ChainId.TESTNET, addresses[exports.ChainId.TESTNET].WETH, 18, 'WZETA', 'Wrapped ZETA', 'https://zetachain-athens-3.blockscout.com/'), _WETH);
+var WETH = (_WETH = {}, _WETH[exports.ChainId.MAINNET] = /*#__PURE__*/new Token(exports.ChainId.MAINNET, addresses[exports.ChainId.MAINNET].WZETA, 18, 'WZETA', 'Wrapped ZETA', 'https://zetachain.blockscout.com/'), _WETH[exports.ChainId.TESTNET] = /*#__PURE__*/new Token(exports.ChainId.TESTNET, addresses[exports.ChainId.TESTNET].WZETA, 18, 'WZETA', 'Wrapped ZETA', 'https://zetachain-athens-3.blockscout.com/'), _WETH);
 
 var _toSignificantRoundin, _toFixedRounding;
 var Decimal = /*#__PURE__*/toFormat(_Decimal);
@@ -774,7 +774,7 @@ var Pair = /*#__PURE__*/function () {
   function Pair(tokenAmountA, tokenAmountB) {
     var tokenAmounts = tokenAmountA.token.sortsBefore(tokenAmountB.token) // does safety checks
     ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
-    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'Katana-LP', 'Katana LPs');
+    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'Zeta-LP', 'Zeta LPs');
     this.tokenAmounts = tokenAmounts;
   }
 
