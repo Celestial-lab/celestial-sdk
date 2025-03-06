@@ -13,16 +13,16 @@ import { getDefaultProvider } from '@ethersproject/providers';
 
 var addresses = {
 	"7000": {
-	SwapFactory: "0xb7193f5FD04A9d9823D4330E30e174034ddAa5bc",
+	SwapFactory: "0xE81Dce61E8966bE69cA85d01128Dd110edc1Eaa0",
 	Factory_Init_Code_Hash: "0xe86662e96900e4449b44f18d0d14562cfbbf80ea5ad7b3defafb60c945bfaadf",
-	SwapRouter: "0xD49C337715128e79868d9AC18C4227e91156108F",
+	SwapRouter: "0x92b95224Ddd359EF6D83Fbe95AFBc3eFd4544c56",
 	WZETA: "0x5F0b1a82749cb4E2278EC87F8BF6B618dC71a8bf"
 },
 	"7001": {
 	WZETA: "0x5F0b1a82749cb4E2278EC87F8BF6B618dC71a8bf",
-	SwapFactory: "0xb7193f5FD04A9d9823D4330E30e174034ddAa5bc",
+	SwapFactory: "0xE81Dce61E8966bE69cA85d01128Dd110edc1Eaa0",
 	Factory_Init_Code_Hash: "0xe86662e96900e4449b44f18d0d14562cfbbf80ea5ad7b3defafb60c945bfaadf",
-	SwapRouter: "0xD49C337715128e79868d9AC18C4227e91156108F"
+	SwapRouter: "0x5F0b1a82749cb4E2278EC87F8BF6B618dC71a8bf"
 }
 };
 
