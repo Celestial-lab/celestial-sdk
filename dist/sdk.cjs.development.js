@@ -18,16 +18,16 @@ var providers = require('@ethersproject/providers');
 
 var addresses = {
 	"7000": {
-	SwapFactory: "0xE81Dce61E8966bE69cA85d01128Dd110edc1Eaa0",
-	Factory_Init_Code_Hash: "0xe86662e96900e4449b44f18d0d14562cfbbf80ea5ad7b3defafb60c945bfaadf",
-	SwapRouter: "0x92b95224Ddd359EF6D83Fbe95AFBc3eFd4544c56",
+	SwapFactory: "0x41ddd160846C1890B0Ae10b0110CA7320f61E837",
+	Factory_Init_Code_Hash: "0x0fc5ad8a37d4e6fa0247f3d75fd31093fdcf933707df5728bc1e44545f404988",
+	SwapRouter: "0x8fA594a4f85D1eD88557826219B43a1e74265a72",
 	WZETA: "0x5F0b1a82749cb4E2278EC87F8BF6B618dC71a8bf"
 },
 	"7001": {
 	WZETA: "0x5F0b1a82749cb4E2278EC87F8BF6B618dC71a8bf",
-	SwapFactory: "0xE81Dce61E8966bE69cA85d01128Dd110edc1Eaa0",
-	Factory_Init_Code_Hash: "0xe86662e96900e4449b44f18d0d14562cfbbf80ea5ad7b3defafb60c945bfaadf",
-	SwapRouter: "0x5F0b1a82749cb4E2278EC87F8BF6B618dC71a8bf"
+	SwapFactory: "0x41ddd160846C1890B0Ae10b0110CA7320f61E837",
+	Factory_Init_Code_Hash: "0x0fc5ad8a37d4e6fa0247f3d75fd31093fdcf933707df5728bc1e44545f404988",
+	SwapRouter: "0x8fA594a4f85D1eD88557826219B43a1e74265a72"
 }
 };
 
