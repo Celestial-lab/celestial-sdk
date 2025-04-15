@@ -13,15 +13,15 @@ import { getDefaultProvider } from '@ethersproject/providers';
 
 var addresses = {
 	"16600": {
-	WA0GI: "0x493ea9950586033ea8894b5e684bb4df6979a0d3",
-	SwapFactory: "0x96FFdEbBB89daB60871ec9C1419dffFB64E4829a",
+	SwapFactory: "0xaDbD663D259D075AAD80B38d716a64939496784E",
 	Factory_Init_Code_Hash: "0x2b5a0a48913903d179fdb718ddb811ebf21d2f63eebf57b1d87104e1b8ee84ff",
-	SwapRouter: "0xbF9aBE29D034291c44209e35Fe3eF5ee8a85FAf3"
+	SwapRouter: "0x3CD9BE90C411fbcCae8C34ce828af61096787597",
+	WA0GI: "0x493ea9950586033ea8894b5e684bb4df6979a0d3"
 },
 	"16601": {
-	SwapFactory: "0x96FFdEbBB89daB60871ec9C1419dffFB64E4829a",
+	SwapFactory: "0xaDbD663D259D075AAD80B38d716a64939496784E",
 	Factory_Init_Code_Hash: "0x2b5a0a48913903d179fdb718ddb811ebf21d2f63eebf57b1d87104e1b8ee84ff",
-	SwapRouter: "0xbF9aBE29D034291c44209e35Fe3eF5ee8a85FAf3",
+	SwapRouter: "0x3CD9BE90C411fbcCae8C34ce828af61096787597",
 	WA0GI: "0x493ea9950586033ea8894b5e684bb4df6979a0d3"
 }
 };
@@ -30,8 +30,8 @@ var _SOLIDITY_TYPE_MAXIMA;
 var ChainId;
 
 (function (ChainId) {
-  ChainId[ChainId["MAINNET"] = 16601] = "MAINNET";
-  ChainId[ChainId["TESTNET"] = 16600] = "TESTNET";
+  ChainId[ChainId["MAINNET"] = 16600] = "MAINNET";
+  ChainId[ChainId["TESTNET"] = 16601] = "TESTNET";
 })(ChainId || (ChainId = {}));
 
 var TradeType;
