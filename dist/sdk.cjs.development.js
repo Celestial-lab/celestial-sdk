@@ -17,25 +17,25 @@ var networks = require('@ethersproject/networks');
 var providers = require('@ethersproject/providers');
 
 var addresses = {
-	"16600": {
-	SwapFactory: "0xaDbD663D259D075AAD80B38d716a64939496784E",
-	Factory_Init_Code_Hash: "0x2b5a0a48913903d179fdb718ddb811ebf21d2f63eebf57b1d87104e1b8ee84ff",
-	SwapRouter: "0x3CD9BE90C411fbcCae8C34ce828af61096787597",
-	WA0GI: "0x493ea9950586033ea8894b5e684bb4df6979a0d3"
+	"7000": {
+	SwapFactory: "0xC4E5b6f7e5cd88455d2DA4acfC2d4C6206f9C92C",
+	Factory_Init_Code_Hash: "0x8d8dc4876a56318fd8244979a0bd363460f3389a0612030eaeb7fd8974e90d9f",
+	SwapRouter: "0x8408A9FEe31a4B78632f27c1223b5574d6d68054",
+	WETH: "0x701855ae3a8b2A989DC8ACCf02Dd2b96f8B21671"
 },
-	"16601": {
-	SwapFactory: "0xaDbD663D259D075AAD80B38d716a64939496784E",
-	Factory_Init_Code_Hash: "0x2b5a0a48913903d179fdb718ddb811ebf21d2f63eebf57b1d87104e1b8ee84ff",
-	SwapRouter: "0x3CD9BE90C411fbcCae8C34ce828af61096787597",
-	WA0GI: "0x493ea9950586033ea8894b5e684bb4df6979a0d3"
+	"11155931": {
+	SwapFactory: "0xC4E5b6f7e5cd88455d2DA4acfC2d4C6206f9C92C",
+	Factory_Init_Code_Hash: "0x8d8dc4876a56318fd8244979a0bd363460f3389a0612030eaeb7fd8974e90d9f",
+	SwapRouter: "0x8408A9FEe31a4B78632f27c1223b5574d6d68054",
+	WETH: "0x701855ae3a8b2A989DC8ACCf02Dd2b96f8B21671"
 }
 };
 
 var _SOLIDITY_TYPE_MAXIMA;
 
 (function (ChainId) {
-  ChainId[ChainId["MAINNET"] = 16601] = "MAINNET";
-  ChainId[ChainId["TESTNET"] = 16600] = "TESTNET";
+  ChainId[ChainId["MAINNET"] = 7000] = "MAINNET";
+  ChainId[ChainId["TESTNET"] = 11155931] = "TESTNET";
 })(exports.ChainId || (exports.ChainId = {}));
 
 (function (TradeType) {
@@ -384,7 +384,7 @@ function Currency(decimals, symbol, name) {
  * The only instance of the base class `Currency`.
  */
 
-Currency.ETHER = /*#__PURE__*/new Currency(18, 'A0GI', '0G Chain');
+Currency.ETHER = /*#__PURE__*/new Currency(18, 'ETH', 'Rise Chain');
 var ETHER = Currency.ETHER;
 
 var _WETH;
@@ -451,7 +451,7 @@ function currencyEquals(currencyA, currencyB) {
     return currencyA === currencyB;
   }
 }
-var WETH = (_WETH = {}, _WETH[exports.ChainId.MAINNET] = /*#__PURE__*/new Token(exports.ChainId.MAINNET, addresses[exports.ChainId.MAINNET].WA0GI, 18, 'WA0GI', 'Wrapped A0GI', 'https://chainscan-newton.0g.ai/'), _WETH[exports.ChainId.TESTNET] = /*#__PURE__*/new Token(exports.ChainId.TESTNET, addresses[exports.ChainId.TESTNET].WA0GI, 18, 'WA0GI', 'Wrapped A0GI', 'https://chainscan-newton.0g.ai/'), _WETH);
+var WETH = (_WETH = {}, _WETH[exports.ChainId.MAINNET] = /*#__PURE__*/new Token(exports.ChainId.MAINNET, addresses[exports.ChainId.MAINNET].WETH, 18, 'WETH', 'Wrapped ETH', 'https://explorer.testnet.riselabs.xyz/'), _WETH[exports.ChainId.TESTNET] = /*#__PURE__*/new Token(exports.ChainId.TESTNET, addresses[exports.ChainId.TESTNET].WETH, 18, 'WETH', 'Wrapped ETH', 'https://explorer.testnet.riselabs.xyz/'), _WETH);
 
 var _toSignificantRoundin, _toFixedRounding;
 var Decimal = /*#__PURE__*/toFormat(_Decimal);
