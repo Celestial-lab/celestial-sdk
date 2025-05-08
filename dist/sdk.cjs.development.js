@@ -34,7 +34,7 @@ var addresses = {
 var _SOLIDITY_TYPE_MAXIMA;
 
 (function (ChainId) {
-  // MAINNET = 7000,
+  ChainId[ChainId["MAINNET"] = 16601] = "MAINNET";
   ChainId[ChainId["TESTNET"] = 11155931] = "TESTNET";
 })(exports.ChainId || (exports.ChainId = {}));
 
