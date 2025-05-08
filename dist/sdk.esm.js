@@ -12,7 +12,7 @@ import { getNetwork } from '@ethersproject/networks';
 import { getDefaultProvider } from '@ethersproject/providers';
 
 var addresses = {
-	"7000": {
+	"16601": {
 	SwapFactory: "0xC4E5b6f7e5cd88455d2DA4acfC2d4C6206f9C92C",
 	Factory_Init_Code_Hash: "0x8d8dc4876a56318fd8244979a0bd363460f3389a0612030eaeb7fd8974e90d9f",
 	SwapRouter: "0x8408A9FEe31a4B78632f27c1223b5574d6d68054",
@@ -30,7 +30,7 @@ var _SOLIDITY_TYPE_MAXIMA;
 var ChainId;
 
 (function (ChainId) {
-  ChainId[ChainId["MAINNET"] = 7000] = "MAINNET";
+  // MAINNET = 7000,
   ChainId[ChainId["TESTNET"] = 11155931] = "TESTNET";
 })(ChainId || (ChainId = {}));
 
@@ -774,7 +774,7 @@ var Pair = /*#__PURE__*/function () {
   function Pair(tokenAmountA, tokenAmountB) {
     var tokenAmounts = tokenAmountA.token.sortsBefore(tokenAmountB.token) // does safety checks
     ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
-    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'ZeroGravity-LP', 'ZeroGravity LPs');
+    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'TestDEX LPs', 'TestDEX-LP');
     this.tokenAmounts = tokenAmounts;
   }
 
