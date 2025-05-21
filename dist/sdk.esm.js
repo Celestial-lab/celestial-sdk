@@ -12,13 +12,13 @@ import { getNetwork } from '@ethersproject/networks';
 import { getDefaultProvider } from '@ethersproject/providers';
 
 var addresses = {
-	"16601": {
+	"9787": {
 	SwapFactory: "0xC4E5b6f7e5cd88455d2DA4acfC2d4C6206f9C92C",
 	Factory_Init_Code_Hash: "0x8d8dc4876a56318fd8244979a0bd363460f3389a0612030eaeb7fd8974e90d9f",
 	SwapRouter: "0x8408A9FEe31a4B78632f27c1223b5574d6d68054",
 	WETH: "0x701855ae3a8b2A989DC8ACCf02Dd2b96f8B21671"
 },
-	"11155931": {
+	"9788": {
 	SwapFactory: "0xC4E5b6f7e5cd88455d2DA4acfC2d4C6206f9C92C",
 	Factory_Init_Code_Hash: "0x8d8dc4876a56318fd8244979a0bd363460f3389a0612030eaeb7fd8974e90d9f",
 	SwapRouter: "0x8408A9FEe31a4B78632f27c1223b5574d6d68054",
@@ -30,8 +30,8 @@ var _SOLIDITY_TYPE_MAXIMA;
 var ChainId;
 
 (function (ChainId) {
-  ChainId[ChainId["MAINNET"] = 16601] = "MAINNET";
-  ChainId[ChainId["TESTNET"] = 11155931] = "TESTNET";
+  ChainId[ChainId["MAINNET"] = 9787] = "MAINNET";
+  ChainId[ChainId["TESTNET"] = 9788] = "TESTNET";
 })(ChainId || (ChainId = {}));
 
 var TradeType;
@@ -384,7 +384,7 @@ function Currency(decimals, symbol, name) {
  * The only instance of the base class `Currency`.
  */
 
-Currency.ETHER = /*#__PURE__*/new Currency(18, 'ETH', 'Rise Chain');
+Currency.ETHER = /*#__PURE__*/new Currency(18, 'TABI', 'Tabi Chain');
 var ETHER = Currency.ETHER;
 
 var _WETH;
@@ -451,7 +451,7 @@ function currencyEquals(currencyA, currencyB) {
     return currencyA === currencyB;
   }
 }
-var WETH = (_WETH = {}, _WETH[ChainId.MAINNET] = /*#__PURE__*/new Token(ChainId.MAINNET, addresses[ChainId.MAINNET].WETH, 18, 'WETH', 'Wrapped ETH', 'https://explorer.testnet.riselabs.xyz/'), _WETH[ChainId.TESTNET] = /*#__PURE__*/new Token(ChainId.TESTNET, addresses[ChainId.TESTNET].WETH, 18, 'WETH', 'Wrapped ETH', 'https://explorer.testnet.riselabs.xyz/'), _WETH);
+var WETH = (_WETH = {}, _WETH[ChainId.MAINNET] = /*#__PURE__*/new Token(ChainId.MAINNET, addresses[ChainId.MAINNET].WETH, 18, 'WTABI', 'Wrapped WTABI', 'https://testnetv2.tabiscan.com/'), _WETH[ChainId.TESTNET] = /*#__PURE__*/new Token(ChainId.TESTNET, addresses[ChainId.TESTNET].WETH, 18, 'WTABI', 'Wrapped WTABI', 'https://testnetv2.tabiscan.com/'), _WETH);
 
 var _toSignificantRoundin, _toFixedRounding;
 var Decimal = /*#__PURE__*/toFormat(_Decimal);
@@ -774,7 +774,7 @@ var Pair = /*#__PURE__*/function () {
   function Pair(tokenAmountA, tokenAmountB) {
     var tokenAmounts = tokenAmountA.token.sortsBefore(tokenAmountB.token) // does safety checks
     ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
-    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'TestDEX LPs', 'TestDEX-LP');
+    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'TBS-LP', 'TBS LPs');
     this.tokenAmounts = tokenAmounts;
   }
 
