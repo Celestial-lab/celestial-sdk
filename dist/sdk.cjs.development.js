@@ -18,16 +18,16 @@ var providers = require('@ethersproject/providers');
 
 var addresses = {
 	"9787": {
-	SwapFactory: "0x6D6945B12E04bC1eEF079E29Ce829F82c44a3bb7",
-	Factory_Init_Code_Hash: "0x6e11c94162bb1bc0c8cf51c4ec1bda3395228cb14660e78251a153bd6908dcd3",
-	SwapRouter: "0x4ACb452D4cC7FDc61dbFA0695f849D1d2aAfB4E2",
-	WETH: "0xCde9c6ad3f82f322AC86DC63eFF63bC405072F95"
+	SwapFactory: "0x893B29731A4F417256d85C4a25B87AD20Bd88568",
+	Factory_Init_Code_Hash: "0x6b893ef59304506887e9286b4f0215d5d09a1314a6e1db41cdb1003a19f6ab55",
+	SwapRouter: "0x2285102a7Bbea45A1A62cdD1d9019BcC27F77f44",
+	WETH: "0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701"
 },
-	"9788": {
-	SwapFactory: "0x6D6945B12E04bC1eEF079E29Ce829F82c44a3bb7",
-	Factory_Init_Code_Hash: "0x6e11c94162bb1bc0c8cf51c4ec1bda3395228cb14660e78251a153bd6908dcd3",
-	SwapRouter: "0x4ACb452D4cC7FDc61dbFA0695f849D1d2aAfB4E2",
-	WETH: "0xCde9c6ad3f82f322AC86DC63eFF63bC405072F95"
+	"10143": {
+	SwapFactory: "0x893B29731A4F417256d85C4a25B87AD20Bd88568",
+	Factory_Init_Code_Hash: "0x6b893ef59304506887e9286b4f0215d5d09a1314a6e1db41cdb1003a19f6ab55",
+	SwapRouter: "0x2285102a7Bbea45A1A62cdD1d9019BcC27F77f44",
+	WETH: "0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701"
 }
 };
 
@@ -35,7 +35,7 @@ var _SOLIDITY_TYPE_MAXIMA;
 
 (function (ChainId) {
   ChainId[ChainId["MAINNET"] = 9787] = "MAINNET";
-  ChainId[ChainId["TESTNET"] = 9788] = "TESTNET";
+  ChainId[ChainId["TESTNET"] = 10143] = "TESTNET";
 })(exports.ChainId || (exports.ChainId = {}));
 
 (function (TradeType) {
@@ -384,7 +384,7 @@ function Currency(decimals, symbol, name) {
  * The only instance of the base class `Currency`.
  */
 
-Currency.ETHER = /*#__PURE__*/new Currency(18, 'TABI', 'Tabi Chain');
+Currency.ETHER = /*#__PURE__*/new Currency(18, 'MON', 'Monad Chain');
 var ETHER = Currency.ETHER;
 
 var _WETH;
@@ -774,7 +774,7 @@ var Pair = /*#__PURE__*/function () {
   function Pair(tokenAmountA, tokenAmountB) {
     var tokenAmounts = tokenAmountA.token.sortsBefore(tokenAmountB.token) // does safety checks
     ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
-    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'TBS-LP', 'TBS LPs');
+    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'tDEX_LP', 'tDEX LP');
     this.tokenAmounts = tokenAmounts;
   }
 
