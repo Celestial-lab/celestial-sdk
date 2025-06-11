@@ -13,16 +13,16 @@ import { getDefaultProvider } from '@ethersproject/providers';
 
 var addresses = {
 	"7000": {
-	SwapFactory: "0xE81Dce61E8966bE69cA85d01128Dd110edc1Eaa0",
-	Factory_Init_Code_Hash: "0xe86662e96900e4449b44f18d0d14562cfbbf80ea5ad7b3defafb60c945bfaadf",
-	SwapRouter: "0x92b95224Ddd359EF6D83Fbe95AFBc3eFd4544c56",
-	WZETA: "0x5F0b1a82749cb4E2278EC87F8BF6B618dC71a8bf"
+	SwapFactory: "0xF597D0495B78C06B9c4c16ebA4620b20F68d9942",
+	Factory_Init_Code_Hash: "0x6b893ef59304506887e9286b4f0215d5d09a1314a6e1db41cdb1003a19f6ab55",
+	SwapRouter: "0x73AeB496F02b002Ce6D2B7E07819aCE6d5A1C3F9",
+	WMON: "0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701"
 },
-	"7001": {
-	WZETA: "0x5F0b1a82749cb4E2278EC87F8BF6B618dC71a8bf",
-	SwapFactory: "0xE81Dce61E8966bE69cA85d01128Dd110edc1Eaa0",
-	Factory_Init_Code_Hash: "0xe86662e96900e4449b44f18d0d14562cfbbf80ea5ad7b3defafb60c945bfaadf",
-	SwapRouter: "0x5F0b1a82749cb4E2278EC87F8BF6B618dC71a8bf"
+	"10143": {
+	SwapFactory: "0xF597D0495B78C06B9c4c16ebA4620b20F68d9942",
+	Factory_Init_Code_Hash: "0x6b893ef59304506887e9286b4f0215d5d09a1314a6e1db41cdb1003a19f6ab55",
+	SwapRouter: "0x73AeB496F02b002Ce6D2B7E07819aCE6d5A1C3F9",
+	WMON: "0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701"
 }
 };
 
@@ -31,7 +31,7 @@ var ChainId;
 
 (function (ChainId) {
   ChainId[ChainId["MAINNET"] = 7000] = "MAINNET";
-  ChainId[ChainId["TESTNET"] = 7001] = "TESTNET";
+  ChainId[ChainId["TESTNET"] = 10143] = "TESTNET";
 })(ChainId || (ChainId = {}));
 
 var TradeType;
@@ -384,7 +384,7 @@ function Currency(decimals, symbol, name) {
  * The only instance of the base class `Currency`.
  */
 
-Currency.ETHER = /*#__PURE__*/new Currency(18, 'ZETA', 'ZETA chain');
+Currency.ETHER = /*#__PURE__*/new Currency(18, 'MON', 'Monad chain');
 var ETHER = Currency.ETHER;
 
 var _WETH;
@@ -451,7 +451,7 @@ function currencyEquals(currencyA, currencyB) {
     return currencyA === currencyB;
   }
 }
-var WETH = (_WETH = {}, _WETH[ChainId.MAINNET] = /*#__PURE__*/new Token(ChainId.MAINNET, addresses[ChainId.MAINNET].WZETA, 18, 'WZETA', 'Wrapped ZETA', 'https://zetachain.blockscout.com/'), _WETH[ChainId.TESTNET] = /*#__PURE__*/new Token(ChainId.TESTNET, addresses[ChainId.TESTNET].WZETA, 18, 'WZETA', 'Wrapped ZETA', 'https://zetachain-athens-3.blockscout.com/'), _WETH);
+var WETH = (_WETH = {}, _WETH[ChainId.MAINNET] = /*#__PURE__*/new Token(ChainId.MAINNET, addresses[ChainId.MAINNET].WMON, 18, 'WMON', 'Wrapped MON', 'https://monad-testnet.socialscan.io/'), _WETH[ChainId.TESTNET] = /*#__PURE__*/new Token(ChainId.TESTNET, addresses[ChainId.TESTNET].WMON, 18, 'WMON', 'Wrapped MON', 'https://monad-testnet.socialscan.io/'), _WETH);
 
 var _toSignificantRoundin, _toFixedRounding;
 var Decimal = /*#__PURE__*/toFormat(_Decimal);
