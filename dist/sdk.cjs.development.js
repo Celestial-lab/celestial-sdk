@@ -17,25 +17,25 @@ var networks = require('@ethersproject/networks');
 var providers = require('@ethersproject/providers');
 
 var addresses = {
-	"9787": {
-	SwapFactory: "0x893B29731A4F417256d85C4a25B87AD20Bd88568",
-	Factory_Init_Code_Hash: "0x6b893ef59304506887e9286b4f0215d5d09a1314a6e1db41cdb1003a19f6ab55",
-	SwapRouter: "0x2285102a7Bbea45A1A62cdD1d9019BcC27F77f44",
-	WETH: "0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701"
+	"7000": {
+	SwapFactory: "0xE81Dce61E8966bE69cA85d01128Dd110edc1Eaa0",
+	Factory_Init_Code_Hash: "0xe86662e96900e4449b44f18d0d14562cfbbf80ea5ad7b3defafb60c945bfaadf",
+	SwapRouter: "0x92b95224Ddd359EF6D83Fbe95AFBc3eFd4544c56",
+	WZETA: "0x5F0b1a82749cb4E2278EC87F8BF6B618dC71a8bf"
 },
-	"10143": {
-	SwapFactory: "0x893B29731A4F417256d85C4a25B87AD20Bd88568",
-	Factory_Init_Code_Hash: "0x6b893ef59304506887e9286b4f0215d5d09a1314a6e1db41cdb1003a19f6ab55",
-	SwapRouter: "0x2285102a7Bbea45A1A62cdD1d9019BcC27F77f44",
-	WETH: "0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701"
+	"7001": {
+	WZETA: "0x5F0b1a82749cb4E2278EC87F8BF6B618dC71a8bf",
+	SwapFactory: "0xE81Dce61E8966bE69cA85d01128Dd110edc1Eaa0",
+	Factory_Init_Code_Hash: "0xe86662e96900e4449b44f18d0d14562cfbbf80ea5ad7b3defafb60c945bfaadf",
+	SwapRouter: "0x5F0b1a82749cb4E2278EC87F8BF6B618dC71a8bf"
 }
 };
 
 var _SOLIDITY_TYPE_MAXIMA;
 
 (function (ChainId) {
-  ChainId[ChainId["MAINNET"] = 9787] = "MAINNET";
-  ChainId[ChainId["TESTNET"] = 10143] = "TESTNET";
+  ChainId[ChainId["MAINNET"] = 7000] = "MAINNET";
+  ChainId[ChainId["TESTNET"] = 7001] = "TESTNET";
 })(exports.ChainId || (exports.ChainId = {}));
 
 (function (TradeType) {
@@ -384,7 +384,7 @@ function Currency(decimals, symbol, name) {
  * The only instance of the base class `Currency`.
  */
 
-Currency.ETHER = /*#__PURE__*/new Currency(18, 'MON', 'Monad Chain');
+Currency.ETHER = /*#__PURE__*/new Currency(18, 'ZETA', 'ZETA chain');
 var ETHER = Currency.ETHER;
 
 var _WETH;
@@ -451,7 +451,7 @@ function currencyEquals(currencyA, currencyB) {
     return currencyA === currencyB;
   }
 }
-var WETH = (_WETH = {}, _WETH[exports.ChainId.MAINNET] = /*#__PURE__*/new Token(exports.ChainId.MAINNET, addresses[exports.ChainId.MAINNET].WETH, 18, 'WTABI', 'Wrapped WTABI', 'https://testnetv2.tabiscan.com/'), _WETH[exports.ChainId.TESTNET] = /*#__PURE__*/new Token(exports.ChainId.TESTNET, addresses[exports.ChainId.TESTNET].WETH, 18, 'WTABI', 'Wrapped WTABI', 'https://testnetv2.tabiscan.com/'), _WETH);
+var WETH = (_WETH = {}, _WETH[exports.ChainId.MAINNET] = /*#__PURE__*/new Token(exports.ChainId.MAINNET, addresses[exports.ChainId.MAINNET].WZETA, 18, 'WZETA', 'Wrapped ZETA', 'https://zetachain.blockscout.com/'), _WETH[exports.ChainId.TESTNET] = /*#__PURE__*/new Token(exports.ChainId.TESTNET, addresses[exports.ChainId.TESTNET].WZETA, 18, 'WZETA', 'Wrapped ZETA', 'https://zetachain-athens-3.blockscout.com/'), _WETH);
 
 var _toSignificantRoundin, _toFixedRounding;
 var Decimal = /*#__PURE__*/toFormat(_Decimal);
@@ -774,7 +774,7 @@ var Pair = /*#__PURE__*/function () {
   function Pair(tokenAmountA, tokenAmountB) {
     var tokenAmounts = tokenAmountA.token.sortsBefore(tokenAmountB.token) // does safety checks
     ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
-    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'tDEX_LP', 'tDEX LP');
+    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'Zeta-LP', 'Zeta LPs');
     this.tokenAmounts = tokenAmounts;
   }
 
