@@ -19,9 +19,9 @@ var providers = require('@ethersproject/providers');
 var addresses = {
 	"10143": {
 	WETH: "0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701",
-	SwapFactory: "0x3118899F4243Fc181E3d76b358C161220852481d",
-	Factory_Init_Code_Hash: "0x21e1ee6475b65b4af04a52c86a5a1f7b0669693ab8cd023d244d68e2ae36fc5e",
-	SwapRouter: "0x9d7C4786EeE891420b351DF255BD5Ce82b35f14E"
+	SwapFactory: "0x841A6EAB4d9b0E4d22998D633A6393b86f884777",
+	Factory_Init_Code_Hash: "0x660cb3d553fe459303f500d8406feb1e26de07e34441be5a63788ecc9974aec7",
+	SwapRouter: "0x752F686094a92c8455CF5033153bF524C6708ecB"
 },
 	"80094": {
 	SwapFactory: "0x0468f03624A0b36614F34F7Fa3b615e9F39E70E2",
