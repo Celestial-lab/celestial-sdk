@@ -9,6 +9,6 @@
     "WETH": "0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701",
     "SwapFactory": "0x37053f84FeB99fA4E146630B33274928E142e727",
     "Factory_Init_Code_Hash": "0xda1254f40b18a6ed0788c63cd020c319f9651dee089b1391aadbbab50f76b337",
-    "SwapRouter": "0x4678f4F469911bFcCa68a977954ac15a09f431aF"
+    "SwapRouter": "0xf91De7BD5ad1174351f57474fc4ef22f4d1bA93A"
   }
 }
