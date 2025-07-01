@@ -7,8 +7,8 @@
   },
   "10143": {
     "WETH": "0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701",
-    "SwapFactory": "0xFc4783fb36BD68e9fb20BC99A9A13601fA510316",
+    "SwapFactory": "0x8C6654E502decD7fe67eE9A146C1A313dD92185e",
     "Factory_Init_Code_Hash": "0x4f87c7d5c8cb2d68fe2880a492d1f881d61ffc57581944b6975eda276696d73f",
-    "SwapRouter": "0xFf5578b226ca4fAE1C9616309cd170E5C111a5DE"
+    "SwapRouter": "0xE086B3A3C40C0D87ff11be1D0b0c2655A96B05aF"
   }
 }
