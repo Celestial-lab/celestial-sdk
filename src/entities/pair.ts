@@ -13,7 +13,8 @@ import {
   ZERO,
   ONE,
   FIVE,
-  FEES_NUMERATOR,
+  LP_FEES_NUMERATOR,
+  PROTOCOL_FEE_NUMERATOR,
   FEES_DENOMINATOR,
   ChainId
 } from '../constants'
@@ -127,38 +128,70 @@ export class Pair {
     }
     const inputReserve = this.reserveOf(inputAmount.token)
     const outputReserve = this.reserveOf(inputAmount.token.equals(this.token0) ? this.token1 : this.token0)
-    const inputAmountWithFee = JSBI.multiply(inputAmount.raw, FEES_NUMERATOR)
+    
+    // Use LP fee rate (0.17%) for AMM pricing calculation
+    const inputAmountWithFee = JSBI.multiply(inputAmount.raw, LP_FEES_NUMERATOR)
     const numerator = JSBI.multiply(inputAmountWithFee, outputReserve.raw)
     const denominator = JSBI.add(JSBI.multiply(inputReserve.raw, FEES_DENOMINATOR), inputAmountWithFee)
-    const outputAmount = new TokenAmount(
-      inputAmount.token.equals(this.token0) ? this.token1 : this.token0,
-      JSBI.divide(numerator, denominator)
-    )
-    if (JSBI.equal(outputAmount.raw, ZERO)) {
+    const grossOutputAmount = JSBI.divide(numerator, denominator)
+    
+    if (JSBI.equal(grossOutputAmount, ZERO)) {
       throw new InsufficientInputAmountError()
     }
-    return [outputAmount, new Pair(inputReserve.add(inputAmount), outputReserve.subtract(outputAmount))]
+    
+    // Calculate protocol fee from gross output (0.08%)
+    const protocolFee = JSBI.divide(JSBI.multiply(grossOutputAmount, PROTOCOL_FEE_NUMERATOR), FEES_DENOMINATOR)
+    
+    // Net output amount after protocol fee deduction
+    const netOutputAmount = JSBI.subtract(grossOutputAmount, protocolFee)
+    
+    const outputAmount = new TokenAmount(
+      inputAmount.token.equals(this.token0) ? this.token1 : this.token0,
+      netOutputAmount
+    )
+    
+    // For the new pair state, use gross output amount (before protocol fee) since 
+    // protocol fee is sent to feeTo address and doesn't affect reserves
+    const newOutputReserve = outputReserve.subtract(new TokenAmount(outputAmount.token, grossOutputAmount))
+    
+    return [outputAmount, new Pair(inputReserve.add(inputAmount), newOutputReserve)]
   }
 
   public getInputAmount(outputAmount: TokenAmount): [TokenAmount, Pair] {
     invariant(this.involvesToken(outputAmount.token), 'TOKEN')
+    
+    // We need to work backwards from the desired net output to find required input
+    // First, calculate the gross output needed (net output + protocol fee)
+    // If net output = X, then gross output = X / (1 - 0.0008) = X / 0.9992
+    const grossOutputAmount = JSBI.divide(
+      JSBI.multiply(outputAmount.raw, FEES_DENOMINATOR),
+      JSBI.subtract(FEES_DENOMINATOR, PROTOCOL_FEE_NUMERATOR)
+    )
+    
+    const outputReserve = this.reserveOf(outputAmount.token)
+    
     if (
       JSBI.equal(this.reserve0.raw, ZERO) ||
       JSBI.equal(this.reserve1.raw, ZERO) ||
-      JSBI.greaterThanOrEqual(outputAmount.raw, this.reserveOf(outputAmount.token).raw)
+      JSBI.greaterThanOrEqual(grossOutputAmount, outputReserve.raw)
     ) {
       throw new InsufficientReservesError()
     }
 
-    const outputReserve = this.reserveOf(outputAmount.token)
     const inputReserve = this.reserveOf(outputAmount.token.equals(this.token0) ? this.token1 : this.token0)
-    const numerator = JSBI.multiply(JSBI.multiply(inputReserve.raw, outputAmount.raw), FEES_DENOMINATOR)
-    const denominator = JSBI.multiply(JSBI.subtract(outputReserve.raw, outputAmount.raw), FEES_NUMERATOR)
+    
+    // Calculate input amount needed for gross output using LP fee rate (0.17%)
+    const numerator = JSBI.multiply(JSBI.multiply(inputReserve.raw, grossOutputAmount), FEES_DENOMINATOR)
+    const denominator = JSBI.multiply(JSBI.subtract(outputReserve.raw, grossOutputAmount), LP_FEES_NUMERATOR)
     const inputAmount = new TokenAmount(
       outputAmount.token.equals(this.token0) ? this.token1 : this.token0,
       JSBI.add(JSBI.divide(numerator, denominator), ONE)
     )
-    return [inputAmount, new Pair(inputReserve.add(inputAmount), outputReserve.subtract(outputAmount))]
+    
+    // For new pair state, use gross output amount since protocol fee doesn't affect reserves
+    const newOutputReserve = outputReserve.subtract(new TokenAmount(outputAmount.token, grossOutputAmount))
+    
+    return [inputAmount, new Pair(inputReserve.add(inputAmount), newOutputReserve)]
   }
 
   public getLiquidityMinted(
@@ -224,5 +257,40 @@ export class Pair {
       token,
       JSBI.divide(JSBI.multiply(liquidity.raw, this.reserveOf(token).raw), totalSupplyAdjusted.raw)
     )
+  }
+
+  /**
+   * Get the gross output amount (before protocol fee deduction) for display purposes
+   * @param inputAmount the input amount
+   * @returns gross output amount that would be calculated by the contract
+   */
+  public getGrossOutputAmount(inputAmount: TokenAmount): TokenAmount {
+    invariant(this.involvesToken(inputAmount.token), 'TOKEN')
+    if (JSBI.equal(this.reserve0.raw, ZERO) || JSBI.equal(this.reserve1.raw, ZERO)) {
+      throw new InsufficientReservesError()
+    }
+    const inputReserve = this.reserveOf(inputAmount.token)
+    const outputReserve = this.reserveOf(inputAmount.token.equals(this.token0) ? this.token1 : this.token0)
+    
+    // Use LP fee rate (0.17%) for AMM pricing calculation
+    const inputAmountWithFee = JSBI.multiply(inputAmount.raw, LP_FEES_NUMERATOR)
+    const numerator = JSBI.multiply(inputAmountWithFee, outputReserve.raw)
+    const denominator = JSBI.add(JSBI.multiply(inputReserve.raw, FEES_DENOMINATOR), inputAmountWithFee)
+    const grossOutputAmount = JSBI.divide(numerator, denominator)
+    
+    return new TokenAmount(
+      inputAmount.token.equals(this.token0) ? this.token1 : this.token0,
+      grossOutputAmount
+    )
+  }
+
+  /**
+   * Get the protocol fee amount that would be charged for a given output
+   * @param outputAmount the gross output amount
+   * @returns protocol fee amount
+   */
+  public getProtocolFee(outputAmount: TokenAmount): TokenAmount {
+    const protocolFee = JSBI.divide(JSBI.multiply(outputAmount.raw, PROTOCOL_FEE_NUMERATOR), FEES_DENOMINATOR)
+    return new TokenAmount(outputAmount.token, protocolFee)
   }
 }

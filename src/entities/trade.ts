@@ -1,6 +1,7 @@
 import invariant from 'tiny-invariant'
+import JSBI from 'jsbi'
 
-import { ChainId, ONE, TradeType, ZERO } from '../constants'
+import { ChainId, ONE, TradeType, ZERO, PROTOCOL_FEE_NUMERATOR, FEES_DENOMINATOR } from '../constants'
 import { sortedInsert } from '../utils'
 import { Currency, ETHER } from './currency'
 import { CurrencyAmount } from './fractions/currencyAmount'
@@ -102,6 +103,7 @@ function wrappedCurrency(currency: Currency, chainId: ChainId): Token {
 /**
  * Represents a trade executed against a list of pairs.
  * Does not account for slippage, i.e. trades that front run this trade and move the price.
+ * Output amounts reflect the net amount after protocol fees.
  */
 export class Trade {
   /**
@@ -117,9 +119,17 @@ export class Trade {
    */
   public readonly inputAmount: CurrencyAmount
   /**
-   * The output amount for the trade assuming no slippage.
+   * The output amount for the trade assuming no slippage (net amount after protocol fees).
    */
   public readonly outputAmount: CurrencyAmount
+  /**
+   * The gross output amount before protocol fee deduction.
+   */
+  public readonly grossOutputAmount: CurrencyAmount
+  /**
+   * The total protocol fee amount that will be charged.
+   */
+  public readonly protocolFeeAmount: CurrencyAmount
   /**
    * The price expressed in terms of output amount/input amount.
    */
@@ -145,7 +155,7 @@ export class Trade {
   /**
    * Constructs an exact out trade with the given amount out and route
    * @param route route of the exact out trade
-   * @param amountOut the amount returned by the trade
+   * @param amountOut the amount returned by the trade (net amount after protocol fees)
    */
   public static exactOut(route: Route, amountOut: CurrencyAmount): Trade {
     return new Trade(route, amountOut, TradeType.EXACT_OUTPUT)
@@ -154,6 +164,8 @@ export class Trade {
   public constructor(route: Route, amount: CurrencyAmount, tradeType: TradeType) {
     const amounts: TokenAmount[] = new Array(route.path.length)
     const nextPairs: Pair[] = new Array(route.pairs.length)
+    let totalProtocolFee = ZERO
+    
     if (tradeType === TradeType.EXACT_INPUT) {
       invariant(currencyEquals(amount.currency, route.input), 'INPUT')
       amounts[0] = wrappedAmount(amount, route.chainId)
@@ -162,6 +174,11 @@ export class Trade {
         const [outputAmount, nextPair] = pair.getOutputAmount(amounts[i])
         amounts[i + 1] = outputAmount
         nextPairs[i] = nextPair
+        
+        // Calculate protocol fee for this hop
+        const grossOutput = pair.getGrossOutputAmount(amounts[i])
+        const protocolFee = pair.getProtocolFee(grossOutput)
+        totalProtocolFee = JSBI.add(totalProtocolFee, protocolFee.raw)
       }
     } else {
       invariant(currencyEquals(amount.currency, route.output), 'OUTPUT')
@@ -171,6 +188,15 @@ export class Trade {
         const [inputAmount, nextPair] = pair.getInputAmount(amounts[i])
         amounts[i - 1] = inputAmount
         nextPairs[i - 1] = nextPair
+        
+        // For exact output, we need to calculate the gross output that would generate the desired net output
+        const netOutput = amounts[i]
+        const grossOutput = new TokenAmount(
+          netOutput.token,
+          JSBI.divide(JSBI.multiply(netOutput.raw, FEES_DENOMINATOR), JSBI.subtract(FEES_DENOMINATOR, PROTOCOL_FEE_NUMERATOR))
+        )
+        const protocolFee = pair.getProtocolFee(grossOutput)
+        totalProtocolFee = JSBI.add(totalProtocolFee, protocolFee.raw)
       }
     }
 
@@ -188,6 +214,32 @@ export class Trade {
         : route.output === ETHER
         ? CurrencyAmount.ether(amounts[amounts.length - 1].raw)
         : amounts[amounts.length - 1]
+
+    // Calculate gross output amount (before protocol fees)
+    if (tradeType === TradeType.EXACT_INPUT) {
+      // For exact input, calculate what the gross output would be
+      const lastPair = route.pairs[route.pairs.length - 1]
+      const grossOutput = lastPair.getGrossOutputAmount(amounts[amounts.length - 2])
+      this.grossOutputAmount = route.output === ETHER
+        ? CurrencyAmount.ether(grossOutput.raw)
+        : grossOutput
+    } else {
+      // For exact output, the gross output is the net output plus protocol fees
+      const outputToken = amounts[amounts.length - 1]
+      const grossOutputRaw = JSBI.divide(JSBI.multiply(outputToken.raw, FEES_DENOMINATOR), JSBI.subtract(FEES_DENOMINATOR, PROTOCOL_FEE_NUMERATOR))
+      this.grossOutputAmount = route.output === ETHER
+        ? CurrencyAmount.ether(grossOutputRaw)
+        : new TokenAmount(outputToken.token, grossOutputRaw)
+    }
+
+    // Calculate total protocol fee amount
+    this.protocolFeeAmount = route.output === ETHER
+      ? CurrencyAmount.ether(totalProtocolFee)
+      : new TokenAmount(
+          wrappedCurrency(route.output, route.chainId),
+          totalProtocolFee
+        )
+
     this.executionPrice = new Price(
       this.inputAmount.currency,
       this.outputAmount.currency,
@@ -281,7 +333,7 @@ export class Trade {
         ;[amountOut] = pair.getOutputAmount(amountIn)
       } catch (error) {
         // input too low
-        if (error.isInsufficientInputAmountError) {
+        if ((error as any).isInsufficientInputAmountError) {
           continue
         }
         throw error
@@ -369,7 +421,7 @@ export class Trade {
         ;[amountIn] = pair.getInputAmount(amountOut)
       } catch (error) {
         // not enough liquidity in this pair
-        if (error.isInsufficientReservesError) {
+        if ((error as any).isInsufficientReservesError) {
           continue
         }
         throw error

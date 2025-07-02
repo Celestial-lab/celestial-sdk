@@ -18,6 +18,7 @@ export interface BestTradeOptions {
 /**
  * Represents a trade executed against a list of pairs.
  * Does not account for slippage, i.e. trades that front run this trade and move the price.
+ * Output amounts reflect the net amount after protocol fees.
  */
 export declare class Trade {
     /**
@@ -33,9 +34,17 @@ export declare class Trade {
      */
     readonly inputAmount: CurrencyAmount;
     /**
-     * The output amount for the trade assuming no slippage.
+     * The output amount for the trade assuming no slippage (net amount after protocol fees).
      */
     readonly outputAmount: CurrencyAmount;
+    /**
+     * The gross output amount before protocol fee deduction.
+     */
+    readonly grossOutputAmount: CurrencyAmount;
+    /**
+     * The total protocol fee amount that will be charged.
+     */
+    readonly protocolFeeAmount: CurrencyAmount;
     /**
      * The price expressed in terms of output amount/input amount.
      */
@@ -57,7 +66,7 @@ export declare class Trade {
     /**
      * Constructs an exact out trade with the given amount out and route
      * @param route route of the exact out trade
-     * @param amountOut the amount returned by the trade
+     * @param amountOut the amount returned by the trade (net amount after protocol fees)
      */
     static exactOut(route: Route, amountOut: CurrencyAmount): Trade;
     constructor(route: Route, amount: CurrencyAmount, tradeType: TradeType);

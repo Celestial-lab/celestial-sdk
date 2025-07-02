@@ -38,4 +38,16 @@ export declare class Pair {
     getInputAmount(outputAmount: TokenAmount): [TokenAmount, Pair];
     getLiquidityMinted(totalSupply: TokenAmount, tokenAmountA: TokenAmount, tokenAmountB: TokenAmount): TokenAmount;
     getLiquidityValue(token: Token, totalSupply: TokenAmount, liquidity: TokenAmount, feeOn?: boolean, kLast?: BigintIsh): TokenAmount;
+    /**
+     * Get the gross output amount (before protocol fee deduction) for display purposes
+     * @param inputAmount the input amount
+     * @returns gross output amount that would be calculated by the contract
+     */
+    getGrossOutputAmount(inputAmount: TokenAmount): TokenAmount;
+    /**
+     * Get the protocol fee amount that would be charged for a given output
+     * @param outputAmount the gross output amount
+     * @returns protocol fee amount
+     */
+    getProtocolFee(outputAmount: TokenAmount): TokenAmount;
 }

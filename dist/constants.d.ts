@@ -24,8 +24,10 @@ export declare const THREE: JSBI;
 export declare const FIVE: JSBI;
 export declare const TEN: JSBI;
 export declare const _100: JSBI;
-export declare const FEES_NUMERATOR: JSBI;
+export declare const LP_FEES_NUMERATOR: JSBI;
+export declare const PROTOCOL_FEE_NUMERATOR: JSBI;
 export declare const FEES_DENOMINATOR: JSBI;
+export declare const FEES_NUMERATOR: JSBI;
 export declare enum SolidityType {
     uint8 = "uint8",
     uint256 = "uint256"

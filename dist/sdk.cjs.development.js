@@ -19,9 +19,9 @@ var providers = require('@ethersproject/providers');
 var addresses = {
 	"10143": {
 	WETH: "0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701",
-	SwapFactory: "0x37053f84FeB99fA4E146630B33274928E142e727",
-	Factory_Init_Code_Hash: "0xda1254f40b18a6ed0788c63cd020c319f9651dee089b1391aadbbab50f76b337",
-	SwapRouter: "0xf91De7BD5ad1174351f57474fc4ef22f4d1bA93A"
+	SwapFactory: "0x46d210f2D4573E93dC5BDBdb401eEB4D1a04356E",
+	Factory_Init_Code_Hash: "0x0f6d1913b7558a29c1843116b184083351a4d27835186a118e41ea48762dc9fb",
+	SwapRouter: "0x5DC06FA7111A4f9Eb3c804E336d128A2C2D53937"
 },
 	"80094": {
 	SwapFactory: "0x0468f03624A0b36614F34F7Fa3b615e9F39E70E2",
@@ -60,9 +60,13 @@ var TWO = /*#__PURE__*/JSBI.BigInt(2);
 var THREE = /*#__PURE__*/JSBI.BigInt(3);
 var FIVE = /*#__PURE__*/JSBI.BigInt(5);
 var TEN = /*#__PURE__*/JSBI.BigInt(10);
-var _100 = /*#__PURE__*/JSBI.BigInt(100);
-var FEES_NUMERATOR = /*#__PURE__*/JSBI.BigInt(9975);
-var FEES_DENOMINATOR = /*#__PURE__*/JSBI.BigInt(10000);
+var _100 = /*#__PURE__*/JSBI.BigInt(100); // Fee structure: Total 0.25% = LP 0.17% + Protocol 0.08%
+
+var LP_FEES_NUMERATOR = /*#__PURE__*/JSBI.BigInt(9983); // 99.83% efficiency (0.17% LP fee)
+
+var PROTOCOL_FEE_NUMERATOR = /*#__PURE__*/JSBI.BigInt(8); // 0.08% protocol fee
+
+var FEES_DENOMINATOR = /*#__PURE__*/JSBI.BigInt(10000); // Legacy constant for backward compatibility
 var SolidityType;
 
 (function (SolidityType) {
@@ -833,32 +837,48 @@ var Pair = /*#__PURE__*/function () {
     }
 
     var inputReserve = this.reserveOf(inputAmount.token);
-    var outputReserve = this.reserveOf(inputAmount.token.equals(this.token0) ? this.token1 : this.token0);
-    var inputAmountWithFee = JSBI.multiply(inputAmount.raw, FEES_NUMERATOR);
+    var outputReserve = this.reserveOf(inputAmount.token.equals(this.token0) ? this.token1 : this.token0); // Use LP fee rate (0.17%) for AMM pricing calculation
+
+    var inputAmountWithFee = JSBI.multiply(inputAmount.raw, LP_FEES_NUMERATOR);
     var numerator = JSBI.multiply(inputAmountWithFee, outputReserve.raw);
     var denominator = JSBI.add(JSBI.multiply(inputReserve.raw, FEES_DENOMINATOR), inputAmountWithFee);
-    var outputAmount = new TokenAmount(inputAmount.token.equals(this.token0) ? this.token1 : this.token0, JSBI.divide(numerator, denominator));
+    var grossOutputAmount = JSBI.divide(numerator, denominator);
 
-    if (JSBI.equal(outputAmount.raw, ZERO)) {
+    if (JSBI.equal(grossOutputAmount, ZERO)) {
       throw new InsufficientInputAmountError();
-    }
+    } // Calculate protocol fee from gross output (0.08%)
 
-    return [outputAmount, new Pair(inputReserve.add(inputAmount), outputReserve.subtract(outputAmount))];
+
+    var protocolFee = JSBI.divide(JSBI.multiply(grossOutputAmount, PROTOCOL_FEE_NUMERATOR), FEES_DENOMINATOR); // Net output amount after protocol fee deduction
+
+    var netOutputAmount = JSBI.subtract(grossOutputAmount, protocolFee);
+    var outputAmount = new TokenAmount(inputAmount.token.equals(this.token0) ? this.token1 : this.token0, netOutputAmount); // For the new pair state, use gross output amount (before protocol fee) since 
+    // protocol fee is sent to feeTo address and doesn't affect reserves
+
+    var newOutputReserve = outputReserve.subtract(new TokenAmount(outputAmount.token, grossOutputAmount));
+    return [outputAmount, new Pair(inputReserve.add(inputAmount), newOutputReserve)];
   };
 
   _proto.getInputAmount = function getInputAmount(outputAmount) {
-    !this.involvesToken(outputAmount.token) ?  invariant(false, 'TOKEN')  : void 0;
+    !this.involvesToken(outputAmount.token) ?  invariant(false, 'TOKEN')  : void 0; // We need to work backwards from the desired net output to find required input
+    // First, calculate the gross output needed (net output + protocol fee)
+    // If net output = X, then gross output = X / (1 - 0.0008) = X / 0.9992
 
-    if (JSBI.equal(this.reserve0.raw, ZERO) || JSBI.equal(this.reserve1.raw, ZERO) || JSBI.greaterThanOrEqual(outputAmount.raw, this.reserveOf(outputAmount.token).raw)) {
+    var grossOutputAmount = JSBI.divide(JSBI.multiply(outputAmount.raw, FEES_DENOMINATOR), JSBI.subtract(FEES_DENOMINATOR, PROTOCOL_FEE_NUMERATOR));
+    var outputReserve = this.reserveOf(outputAmount.token);
+
+    if (JSBI.equal(this.reserve0.raw, ZERO) || JSBI.equal(this.reserve1.raw, ZERO) || JSBI.greaterThanOrEqual(grossOutputAmount, outputReserve.raw)) {
       throw new InsufficientReservesError();
     }
 
-    var outputReserve = this.reserveOf(outputAmount.token);
-    var inputReserve = this.reserveOf(outputAmount.token.equals(this.token0) ? this.token1 : this.token0);
-    var numerator = JSBI.multiply(JSBI.multiply(inputReserve.raw, outputAmount.raw), FEES_DENOMINATOR);
-    var denominator = JSBI.multiply(JSBI.subtract(outputReserve.raw, outputAmount.raw), FEES_NUMERATOR);
-    var inputAmount = new TokenAmount(outputAmount.token.equals(this.token0) ? this.token1 : this.token0, JSBI.add(JSBI.divide(numerator, denominator), ONE));
-    return [inputAmount, new Pair(inputReserve.add(inputAmount), outputReserve.subtract(outputAmount))];
+    var inputReserve = this.reserveOf(outputAmount.token.equals(this.token0) ? this.token1 : this.token0); // Calculate input amount needed for gross output using LP fee rate (0.17%)
+
+    var numerator = JSBI.multiply(JSBI.multiply(inputReserve.raw, grossOutputAmount), FEES_DENOMINATOR);
+    var denominator = JSBI.multiply(JSBI.subtract(outputReserve.raw, grossOutputAmount), LP_FEES_NUMERATOR);
+    var inputAmount = new TokenAmount(outputAmount.token.equals(this.token0) ? this.token1 : this.token0, JSBI.add(JSBI.divide(numerator, denominator), ONE)); // For new pair state, use gross output amount since protocol fee doesn't affect reserves
+
+    var newOutputReserve = outputReserve.subtract(new TokenAmount(outputAmount.token, grossOutputAmount));
+    return [inputAmount, new Pair(inputReserve.add(inputAmount), newOutputReserve)];
   };
 
   _proto.getLiquidityMinted = function getLiquidityMinted(totalSupply, tokenAmountA, tokenAmountB) {
@@ -918,6 +938,40 @@ var Pair = /*#__PURE__*/function () {
     }
 
     return new TokenAmount(token, JSBI.divide(JSBI.multiply(liquidity.raw, this.reserveOf(token).raw), totalSupplyAdjusted.raw));
+  }
+  /**
+   * Get the gross output amount (before protocol fee deduction) for display purposes
+   * @param inputAmount the input amount
+   * @returns gross output amount that would be calculated by the contract
+   */
+  ;
+
+  _proto.getGrossOutputAmount = function getGrossOutputAmount(inputAmount) {
+    !this.involvesToken(inputAmount.token) ?  invariant(false, 'TOKEN')  : void 0;
+
+    if (JSBI.equal(this.reserve0.raw, ZERO) || JSBI.equal(this.reserve1.raw, ZERO)) {
+      throw new InsufficientReservesError();
+    }
+
+    var inputReserve = this.reserveOf(inputAmount.token);
+    var outputReserve = this.reserveOf(inputAmount.token.equals(this.token0) ? this.token1 : this.token0); // Use LP fee rate (0.17%) for AMM pricing calculation
+
+    var inputAmountWithFee = JSBI.multiply(inputAmount.raw, LP_FEES_NUMERATOR);
+    var numerator = JSBI.multiply(inputAmountWithFee, outputReserve.raw);
+    var denominator = JSBI.add(JSBI.multiply(inputReserve.raw, FEES_DENOMINATOR), inputAmountWithFee);
+    var grossOutputAmount = JSBI.divide(numerator, denominator);
+    return new TokenAmount(inputAmount.token.equals(this.token0) ? this.token1 : this.token0, grossOutputAmount);
+  }
+  /**
+   * Get the protocol fee amount that would be charged for a given output
+   * @param outputAmount the gross output amount
+   * @returns protocol fee amount
+   */
+  ;
+
+  _proto.getProtocolFee = function getProtocolFee(outputAmount) {
+    var protocolFee = JSBI.divide(JSBI.multiply(outputAmount.raw, PROTOCOL_FEE_NUMERATOR), FEES_DENOMINATOR);
+    return new TokenAmount(outputAmount.token, protocolFee);
   };
 
   _createClass(Pair, [{
@@ -1112,6 +1166,7 @@ function wrappedCurrency(currency, chainId) {
 /**
  * Represents a trade executed against a list of pairs.
  * Does not account for slippage, i.e. trades that front run this trade and move the price.
+ * Output amounts reflect the net amount after protocol fees.
  */
 
 
@@ -1119,6 +1174,7 @@ var Trade = /*#__PURE__*/function () {
   function Trade(route, amount, tradeType) {
     var amounts = new Array(route.path.length);
     var nextPairs = new Array(route.pairs.length);
+    var totalProtocolFee = ZERO;
 
     if (tradeType === exports.TradeType.EXACT_INPUT) {
       !currencyEquals(amount.currency, route.input) ?  invariant(false, 'INPUT')  : void 0;
@@ -1132,7 +1188,11 @@ var Trade = /*#__PURE__*/function () {
             nextPair = _pair$getOutputAmount[1];
 
         amounts[i + 1] = outputAmount;
-        nextPairs[i] = nextPair;
+        nextPairs[i] = nextPair; // Calculate protocol fee for this hop
+
+        var grossOutput = pair.getGrossOutputAmount(amounts[i]);
+        var protocolFee = pair.getProtocolFee(grossOutput);
+        totalProtocolFee = JSBI.add(totalProtocolFee, protocolFee.raw);
       }
     } else {
       !currencyEquals(amount.currency, route.output) ?  invariant(false, 'OUTPUT')  : void 0;
@@ -1146,14 +1206,39 @@ var Trade = /*#__PURE__*/function () {
             _nextPair = _pair$getInputAmount[1];
 
         amounts[_i - 1] = inputAmount;
-        nextPairs[_i - 1] = _nextPair;
+        nextPairs[_i - 1] = _nextPair; // For exact output, we need to calculate the gross output that would generate the desired net output
+
+        var netOutput = amounts[_i];
+
+        var _grossOutput = new TokenAmount(netOutput.token, JSBI.divide(JSBI.multiply(netOutput.raw, FEES_DENOMINATOR), JSBI.subtract(FEES_DENOMINATOR, PROTOCOL_FEE_NUMERATOR)));
+
+        var _protocolFee = _pair.getProtocolFee(_grossOutput);
+
+        totalProtocolFee = JSBI.add(totalProtocolFee, _protocolFee.raw);
       }
     }
 
     this.route = route;
     this.tradeType = tradeType;
     this.inputAmount = tradeType === exports.TradeType.EXACT_INPUT ? amount : route.input === ETHER ? CurrencyAmount.ether(amounts[0].raw) : amounts[0];
-    this.outputAmount = tradeType === exports.TradeType.EXACT_OUTPUT ? amount : route.output === ETHER ? CurrencyAmount.ether(amounts[amounts.length - 1].raw) : amounts[amounts.length - 1];
+    this.outputAmount = tradeType === exports.TradeType.EXACT_OUTPUT ? amount : route.output === ETHER ? CurrencyAmount.ether(amounts[amounts.length - 1].raw) : amounts[amounts.length - 1]; // Calculate gross output amount (before protocol fees)
+
+    if (tradeType === exports.TradeType.EXACT_INPUT) {
+      // For exact input, calculate what the gross output would be
+      var lastPair = route.pairs[route.pairs.length - 1];
+
+      var _grossOutput2 = lastPair.getGrossOutputAmount(amounts[amounts.length - 2]);
+
+      this.grossOutputAmount = route.output === ETHER ? CurrencyAmount.ether(_grossOutput2.raw) : _grossOutput2;
+    } else {
+      // For exact output, the gross output is the net output plus protocol fees
+      var outputToken = amounts[amounts.length - 1];
+      var grossOutputRaw = JSBI.divide(JSBI.multiply(outputToken.raw, FEES_DENOMINATOR), JSBI.subtract(FEES_DENOMINATOR, PROTOCOL_FEE_NUMERATOR));
+      this.grossOutputAmount = route.output === ETHER ? CurrencyAmount.ether(grossOutputRaw) : new TokenAmount(outputToken.token, grossOutputRaw);
+    } // Calculate total protocol fee amount
+
+
+    this.protocolFeeAmount = route.output === ETHER ? CurrencyAmount.ether(totalProtocolFee) : new TokenAmount(wrappedCurrency(route.output, route.chainId), totalProtocolFee);
     this.executionPrice = new Price(this.inputAmount.currency, this.outputAmount.currency, this.inputAmount.raw, this.outputAmount.raw);
     this.nextMidPrice = Price.fromRoute(new Route(nextPairs, route.input));
     this.priceImpact = computePriceImpact(route.midPrice, this.inputAmount, this.outputAmount);
@@ -1171,7 +1256,7 @@ var Trade = /*#__PURE__*/function () {
   /**
    * Constructs an exact out trade with the given amount out and route
    * @param route route of the exact out trade
-   * @param amountOut the amount returned by the trade
+   * @param amountOut the amount returned by the trade (net amount after protocol fees)
    */
   ;
 

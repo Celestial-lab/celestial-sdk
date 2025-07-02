@@ -36,8 +36,14 @@ export const THREE = JSBI.BigInt(3)
 export const FIVE = JSBI.BigInt(5)
 export const TEN = JSBI.BigInt(10)
 export const _100 = JSBI.BigInt(100)
-export const FEES_NUMERATOR = JSBI.BigInt(9975)
+
+// Fee structure: Total 0.25% = LP 0.17% + Protocol 0.08%
+export const LP_FEES_NUMERATOR = JSBI.BigInt(9983)     // 99.83% efficiency (0.17% LP fee)
+export const PROTOCOL_FEE_NUMERATOR = JSBI.BigInt(8)   // 0.08% protocol fee
 export const FEES_DENOMINATOR = JSBI.BigInt(10000)
+
+// Legacy constant for backward compatibility
+export const FEES_NUMERATOR = LP_FEES_NUMERATOR
 
 export enum SolidityType {
   uint8 = 'uint8',
