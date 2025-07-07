@@ -14,9 +14,9 @@ import { getDefaultProvider } from '@ethersproject/providers';
 var addresses = {
 	"10143": {
 	WETH: "0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701",
-	SwapFactory: "0x80F2FAD08d20282EDeD6D6a92E69Ab3DF2130EF7",
-	Factory_Init_Code_Hash: "0x1f452c472ad1e9dbce4bb82a56cd9848f55700ed367f159162af584d5dbb23c2",
-	SwapRouter: "0x216672D35ceE40ca004e3fF8F1b7e590D2b677D5"
+	SwapFactory: "0x9a9200B2Eea691591319A1bcbc906AEb72382840",
+	Factory_Init_Code_Hash: "0xbdf1fb35cf568b4de84e9f15efddc3aceb94eb5965b530f45cf2bbc8dd6169b9",
+	SwapRouter: "0x90730a9f7B9631ab9B4580a2d95E71f6C062b8ac"
 },
 	"80094": {
 	SwapFactory: "0x0468f03624A0b36614F34F7Fa3b615e9F39E70E2",
