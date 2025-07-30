@@ -25,9 +25,9 @@ var addresses = {
 },
 	"10143": {
 	WETH: "0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701",
-	SwapFactory: "0xCFdaFF350183C34c7b0A4DbE13ca4516D3bf221d",
+	SwapFactory: "0xaCB3368a511801394635a21E9539AABC1E542D1B",
 	Factory_Init_Code_Hash: "0xbdf1fb35cf568b4de84e9f15efddc3aceb94eb5965b530f45cf2bbc8dd6169b9",
-	SwapRouter: "0x3aa81D3Fa0FEeA629c6Dcc62b028635a4D12a99b"
+	SwapRouter: "0x72CcC17ae98f604ca1AB9b26eaf2853f37B96550"
 }
 };
 
