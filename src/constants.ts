@@ -5,8 +5,8 @@ import addresses from './addresses.json'
 export type BigintIsh = JSBI | bigint | string
 
 export enum ChainId {
-  MAINNET = 43111,
-  TESTNET = 2810
+  MAINNET = 196,
+  TESTNET = 195
 }
 
 export enum TradeType {

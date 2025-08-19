@@ -71,16 +71,16 @@ export const WETH = {
     ChainId.MAINNET,
     addresses[ChainId.MAINNET].WETH,
     18,
-    'WETH',
-    'Wrapped ETH',
+    'WOKB',
+    'Wrapped OKB',
     'https://explorer-b81c3bd8.hemi.xyz/'
   ),
   [ChainId.TESTNET]: new Token(
     ChainId.TESTNET,
     addresses[ChainId.TESTNET].WETH,
     18,
-    'WETH',
-    'Wrapped ETH',
+    'WOKB',
+    'Wrapped OKB',
     'https://mainnet.uniscan.xyz/'
   )
 }
