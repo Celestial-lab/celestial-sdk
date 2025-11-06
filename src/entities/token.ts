@@ -71,9 +71,9 @@ export const WETH = {
     ChainId.MAINNET,
     addresses[ChainId.MAINNET].WETH,
     18,
-    'WOKB',
-    'Wrapped OKB',
-    'https://explorer-b81c3bd8.hemi.xyz/'
+    'WETH',
+    'Wrapped ETH',
+    'https://arbiscan.io/'
   ),
   [ChainId.TESTNET]: new Token(
     ChainId.TESTNET,
