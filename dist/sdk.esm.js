@@ -12,14 +12,14 @@ import { getNetwork } from '@ethersproject/networks';
 import { getDefaultProvider } from '@ethersproject/providers';
 
 var addresses = {
-	"42161": {
-	WETH: "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1",
+	"8453": {
+	WETH: "0x4200000000000000000000000000000000000006",
 	SwapFactory: "0x95BB9AFBD2C370584251BAf96B97be8602Da5B7e",
 	Factory_Init_Code_Hash: "0x350d97c480ddf143ed42f59d29c3657f513a591ec1477e15ef6903975a308f13",
 	SwapRouter: "0xAb45C766ee1d9cA8C067Ece3a02E2416776350f9"
 },
-	"421614": {
-	WETH: "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1",
+	"84532": {
+	WETH: "0x4200000000000000000000000000000000000006",
 	SwapFactory: "0x5B3c9DE373DD33BbA780aEA94265005c5AF831d0",
 	Factory_Init_Code_Hash: "0x26f9bed52c57d07371e9e8c942e654f50584289a6e1cedb5a4f310deff8d2448",
 	SwapRouter: "0xeDBFf6892ed17DE6105Fc475e37B0b7Aa1Fea07b"
@@ -30,8 +30,8 @@ var _SOLIDITY_TYPE_MAXIMA;
 var ChainId;
 
 (function (ChainId) {
-  ChainId[ChainId["MAINNET"] = 42161] = "MAINNET";
-  ChainId[ChainId["TESTNET"] = 421614] = "TESTNET";
+  ChainId[ChainId["MAINNET"] = 8453] = "MAINNET";
+  ChainId[ChainId["TESTNET"] = 84532] = "TESTNET";
 })(ChainId || (ChainId = {}));
 
 var TradeType;
@@ -451,7 +451,7 @@ function currencyEquals(currencyA, currencyB) {
     return currencyA === currencyB;
   }
 }
-var WETH = (_WETH = {}, _WETH[ChainId.MAINNET] = /*#__PURE__*/new Token(ChainId.MAINNET, addresses[ChainId.MAINNET].WETH, 18, 'WETH', 'Wrapped ETH', 'https://arbiscan.io/'), _WETH[ChainId.TESTNET] = /*#__PURE__*/new Token(ChainId.TESTNET, addresses[ChainId.TESTNET].WETH, 18, 'WOKB', 'Wrapped OKB', 'https://mainnet.uniscan.xyz/'), _WETH);
+var WETH = (_WETH = {}, _WETH[ChainId.MAINNET] = /*#__PURE__*/new Token(ChainId.MAINNET, addresses[ChainId.MAINNET].WETH, 18, 'WETH', 'Wrapped ETH', 'https://basescan.org'), _WETH[ChainId.TESTNET] = /*#__PURE__*/new Token(ChainId.TESTNET, addresses[ChainId.TESTNET].WETH, 18, 'WETH', 'Wrapped ETH', 'https://mainnet.uniscan.xyz'), _WETH);
 
 var _toSignificantRoundin, _toFixedRounding;
 var Decimal = /*#__PURE__*/toFormat(_Decimal);
