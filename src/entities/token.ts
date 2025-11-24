@@ -73,7 +73,7 @@ export const WETH = {
     18,
     'WMON',
     'Wrapped Monad',
-    'https://bartio.beratrail.io'
+    'https://monadvision.com'
   ),
   [ChainId.TESTNET]: new Token(
     ChainId.TESTNET,

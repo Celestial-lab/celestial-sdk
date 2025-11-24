@@ -13,10 +13,10 @@ import { getDefaultProvider } from '@ethersproject/providers';
 
 var addresses = {
 	"143": {
-	SwapFactory: "0x0468f03624A0b36614F34F7Fa3b615e9F39E70E2",
-	Factory_Init_Code_Hash: "0xb014d4c854360ab88b2113bbff9a15354df822c1dcbeb5ab2a37c58adbe87ebe",
-	SwapRouter: "0xA14Cfba980cE1E3ceD55773644d47180857D26C7",
-	WETH: "0x6969696969696969696969696969696969696969"
+	SwapFactory: "0x93d71152A93619c0b10A2EFc856AC46120FD01Ab",
+	Factory_Init_Code_Hash: "7408f70258e1a1ad741ccb1e097da677b0914d111a9759dc374f25589365eb69",
+	SwapRouter: "0x73fa4d18C80411E420a2E083f1Cf0dc5020cB067",
+	WETH: "0x3bd359C1119dA7Da1D913D1C4D2B7c461115433A"
 },
 	"10143": {
 	WETH: "0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701",
@@ -49,7 +49,7 @@ var Rounding;
   Rounding[Rounding["ROUND_UP"] = 2] = "ROUND_UP";
 })(Rounding || (Rounding = {}));
 
-var DEFAULT_CHAIN_ID = ChainId.TESTNET;
+var DEFAULT_CHAIN_ID = ChainId.MAINNET;
 var FACTORY_ADDRESS = addresses[DEFAULT_CHAIN_ID].SwapFactory;
 var INIT_CODE_HASH = addresses[DEFAULT_CHAIN_ID].Factory_Init_Code_Hash;
 var MINIMUM_LIQUIDITY = /*#__PURE__*/JSBI.BigInt(1000); // exports for internal consumption
@@ -455,7 +455,7 @@ function currencyEquals(currencyA, currencyB) {
     return currencyA === currencyB;
   }
 }
-var WETH = (_WETH = {}, _WETH[ChainId.MAINNET] = /*#__PURE__*/new Token(ChainId.MAINNET, addresses[ChainId.MAINNET].WETH, 18, 'WMON', 'Wrapped Monad', 'https://bartio.beratrail.io'), _WETH[ChainId.TESTNET] = /*#__PURE__*/new Token(ChainId.TESTNET, addresses[ChainId.TESTNET].WETH, 18, 'WMON', 'Wrapped Monad', 'https://testnet.monadexplorer.com'), _WETH);
+var WETH = (_WETH = {}, _WETH[ChainId.MAINNET] = /*#__PURE__*/new Token(ChainId.MAINNET, addresses[ChainId.MAINNET].WETH, 18, 'WMON', 'Wrapped Monad', 'https://monadvision.com'), _WETH[ChainId.TESTNET] = /*#__PURE__*/new Token(ChainId.TESTNET, addresses[ChainId.TESTNET].WETH, 18, 'WMON', 'Wrapped Monad', 'https://testnet.monadexplorer.com'), _WETH);
 
 var _toSignificantRoundin, _toFixedRounding;
 var Decimal = /*#__PURE__*/toFormat(_Decimal);
