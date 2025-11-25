@@ -5,8 +5,8 @@ import addresses from './addresses.json'
 export type BigintIsh = JSBI | bigint | string
 
 export enum ChainId {
-  MAINNET = 204,
-  TESTNET = 534351
+  MAINNET = 7000,
+  TESTNET = 5042002
 }
 
 export enum TradeType {
@@ -20,9 +20,9 @@ export enum Rounding {
   ROUND_UP
 }
 
-export const DEFAULT_CHAIN_ID = ChainId.MAINNET
+export const DEFAULT_CHAIN_ID = ChainId.TESTNET
 
-export const FACTORY_ADDRESS = addresses[DEFAULT_CHAIN_ID].FeDexFactory
+export const FACTORY_ADDRESS = addresses[DEFAULT_CHAIN_ID].SwapFactory
 
 export const INIT_CODE_HASH = addresses[DEFAULT_CHAIN_ID].Factory_Init_Code_Hash
 
