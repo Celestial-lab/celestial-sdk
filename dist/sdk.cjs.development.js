@@ -18,16 +18,16 @@ var providers = require('@ethersproject/providers');
 
 var addresses = {
 	"42161": {
-	WETH: "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1",
+	WUSDC: "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1",
 	SwapFactory: "0x95BB9AFBD2C370584251BAf96B97be8602Da5B7e",
 	Factory_Init_Code_Hash: "0x350d97c480ddf143ed42f59d29c3657f513a591ec1477e15ef6903975a308f13",
 	SwapRouter: "0xAb45C766ee1d9cA8C067Ece3a02E2416776350f9"
 },
 	"5042002": {
-	WETH: "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1",
-	SwapFactory: "0x5B3c9DE373DD33BbA780aEA94265005c5AF831d0",
-	Factory_Init_Code_Hash: "0x26f9bed52c57d07371e9e8c942e654f50584289a6e1cedb5a4f310deff8d2448",
-	SwapRouter: "0xeDBFf6892ed17DE6105Fc475e37B0b7Aa1Fea07b"
+	WUSDC: "0x911b4000D3422F482F4062a913885f7b035382Df",
+	SwapFactory: "0x885Ac56932B229E2321502CE67c76610BcAA1a6B",
+	Factory_Init_Code_Hash: "0x0eea0e053c2a252c309165dc9912ba9657d4b6bab6a551f89e70b4ad5b4e72f0",
+	SwapRouter: "0xDBaaAAB172667A748cd1D37B4B022ae249B89574"
 }
 };
 
@@ -384,7 +384,7 @@ function Currency(decimals, symbol, name) {
  * The only instance of the base class `Currency`.
  */
 
-Currency.ETHER = /*#__PURE__*/new Currency(18, 'ETH', 'Ether');
+Currency.ETHER = /*#__PURE__*/new Currency(18, 'USDC', 'Arc Testnet');
 var ETHER = Currency.ETHER;
 
 var _WETH;
@@ -451,7 +451,7 @@ function currencyEquals(currencyA, currencyB) {
     return currencyA === currencyB;
   }
 }
-var WETH = (_WETH = {}, _WETH[exports.ChainId.MAINNET] = /*#__PURE__*/new Token(exports.ChainId.MAINNET, addresses[exports.ChainId.MAINNET].WETH, 18, 'WETH', 'Wrapped ETH', 'https://arbiscan.io/'), _WETH[exports.ChainId.TESTNET] = /*#__PURE__*/new Token(exports.ChainId.TESTNET, addresses[exports.ChainId.TESTNET].WETH, 18, 'WOKB', 'Wrapped OKB', 'https://mainnet.uniscan.xyz/'), _WETH);
+var WETH = (_WETH = {}, _WETH[exports.ChainId.MAINNET] = /*#__PURE__*/new Token(exports.ChainId.MAINNET, addresses[exports.ChainId.MAINNET].WUSDC, 18, 'WUSDC', 'Wrapped USDC', 'https://testnet.arcscan.app/'), _WETH[exports.ChainId.TESTNET] = /*#__PURE__*/new Token(exports.ChainId.TESTNET, addresses[exports.ChainId.TESTNET].WUSDC, 18, 'WUSDC', 'Wrapped USDC', 'https://testnet.arcscan.app/'), _WETH);
 
 var _toSignificantRoundin, _toFixedRounding;
 var Decimal = /*#__PURE__*/toFormat(_Decimal);
@@ -774,7 +774,7 @@ var Pair = /*#__PURE__*/function () {
   function Pair(tokenAmountA, tokenAmountB) {
     var tokenAmounts = tokenAmountA.token.sortsBefore(tokenAmountB.token) // does safety checks
     ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
-    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'MDF-LP"', 'MoodengFi LPs');
+    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'tARC-LP', 'testarc LPs');
     this.tokenAmounts = tokenAmounts;
   }
 
