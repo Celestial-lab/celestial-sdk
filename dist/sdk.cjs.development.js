@@ -24,10 +24,10 @@ var addresses = {
 	WETH: "0x3bd359C1119dA7Da1D913D1C4D2B7c461115433A"
 },
 	"10143": {
-	WETH: "0x760AfE86e5de5fa0Ee542fc7B7B713e1c5425701",
-	SwapFactory: "0x0C932aC60333520B769fC164a6C27B626e483Ad5",
-	Factory_Init_Code_Hash: "0x7408f70258e1a1ad741ccb1e097da677b0914d111a9759dc374f25589365eb69",
-	SwapRouter: "0x929Ce5442a7cfA3e088BE7AB09dD2D9039F5e23c"
+	WETH: "0xcfc4Fa68042509a239fA33f7A559860C875dCA70",
+	SwapFactory: "0x644E948fDF2420f680BBbE4Dd7CC825642113fef",
+	Factory_Init_Code_Hash: "0x46116e913ce2b5219359895f34f278dfe422c09627c7ee1c106babbdc7135c59",
+	SwapRouter: "0xb87314F0850839AB3B0DB394b5014F134a2C037d"
 }
 };
 
@@ -388,7 +388,7 @@ function Currency(decimals, symbol, name) {
  * The only instance of the base class `Currency`.
  */
 
-Currency.ETHER = /*#__PURE__*/new Currency(18, 'MON', 'Monad');
+Currency.ETHER = /*#__PURE__*/new Currency(18, 'CLES', 'Celes Chain');
 var ETHER = Currency.ETHER;
 
 var _WETH;
@@ -455,7 +455,7 @@ function currencyEquals(currencyA, currencyB) {
     return currencyA === currencyB;
   }
 }
-var WETH = (_WETH = {}, _WETH[exports.ChainId.MAINNET] = /*#__PURE__*/new Token(exports.ChainId.MAINNET, addresses[exports.ChainId.MAINNET].WETH, 18, 'WMON', 'Wrapped Monad', 'https://monadvision.com'), _WETH[exports.ChainId.TESTNET] = /*#__PURE__*/new Token(exports.ChainId.TESTNET, addresses[exports.ChainId.TESTNET].WETH, 18, 'WMON', 'Wrapped Monad', 'https://testnet.monadexplorer.com'), _WETH);
+var WETH = (_WETH = {}, _WETH[exports.ChainId.MAINNET] = /*#__PURE__*/new Token(exports.ChainId.MAINNET, addresses[exports.ChainId.MAINNET].WETH, 18, 'WCLES', 'Wrapped CLES', 'https://monadvision.com'), _WETH[exports.ChainId.TESTNET] = /*#__PURE__*/new Token(exports.ChainId.TESTNET, addresses[exports.ChainId.TESTNET].WETH, 18, 'WCLES', 'Wrapped CLES', 'https://testnet-explore.celeschain.org'), _WETH);
 
 var _toSignificantRoundin, _toFixedRounding;
 var Decimal = /*#__PURE__*/toFormat(_Decimal);
