@@ -13,7 +13,7 @@ export declare enum Rounding {
     ROUND_HALF_UP = 1,
     ROUND_UP = 2
 }
-export declare const DEFAULT_CHAIN_ID = ChainId.TESTNET;
+export declare const DEFAULT_CHAIN_ID = ChainId.MAINNET;
 export declare const FACTORY_ADDRESS: string;
 export declare const INIT_CODE_HASH: string;
 export declare const MINIMUM_LIQUIDITY: JSBI;
