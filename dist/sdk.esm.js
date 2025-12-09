@@ -12,13 +12,13 @@ import { getNetwork } from '@ethersproject/networks';
 import { getDefaultProvider } from '@ethersproject/providers';
 
 var addresses = {
-	"143": {
-	SwapFactory: "0x93d71152A93619c0b10A2EFc856AC46120FD01Ab",
-	Factory_Init_Code_Hash: "0x7408f70258e1a1ad741ccb1e097da677b0914d111a9759dc374f25589365eb69",
-	SwapRouter: "0x73fa4d18C80411E420a2E083f1Cf0dc5020cB067",
-	WETH: "0x3bd359C1119dA7Da1D913D1C4D2B7c461115433A"
+	"988": {
+	SwapFactory: "0xc5ba86e4A6F674816fA7c3B7cA438D63ec136bE9",
+	Factory_Init_Code_Hash: "0x656734f712cf74beaa071ecd60e4afdbe4edd3344fdb10789c25c2574b74c0ca",
+	SwapRouter: "0x93e5B43edbd00DBCAb04796449b562A8287fd53c",
+	WETH: "0x817997Ca8394E26CCE3dE3A076a4889b27DbF9dE"
 },
-	"22225": {
+	"10143": {
 	WETH: "0xcfc4Fa68042509a239fA33f7A559860C875dCA70",
 	SwapFactory: "0x644E948fDF2420f680BBbE4Dd7CC825642113fef",
 	Factory_Init_Code_Hash: "0x46116e913ce2b5219359895f34f278dfe422c09627c7ee1c106babbdc7135c59",
@@ -30,8 +30,8 @@ var _SOLIDITY_TYPE_MAXIMA;
 var ChainId;
 
 (function (ChainId) {
-  ChainId[ChainId["MAINNET"] = 143] = "MAINNET";
-  ChainId[ChainId["TESTNET"] = 22225] = "TESTNET";
+  ChainId[ChainId["MAINNET"] = 988] = "MAINNET";
+  ChainId[ChainId["TESTNET"] = 10143] = "TESTNET";
 })(ChainId || (ChainId = {}));
 
 var TradeType;
@@ -388,7 +388,7 @@ function Currency(decimals, symbol, name) {
  * The only instance of the base class `Currency`.
  */
 
-Currency.ETHER = /*#__PURE__*/new Currency(18, 'CLES', 'Celes Chain');
+Currency.ETHER = /*#__PURE__*/new Currency(18, 'gUSDT', 'Stable Chain');
 var ETHER = Currency.ETHER;
 
 var _WETH;
@@ -455,7 +455,7 @@ function currencyEquals(currencyA, currencyB) {
     return currencyA === currencyB;
   }
 }
-var WETH = (_WETH = {}, _WETH[ChainId.MAINNET] = /*#__PURE__*/new Token(ChainId.MAINNET, addresses[ChainId.MAINNET].WETH, 18, 'WCLES', 'Wrapped CLES', 'https://monadvision.com'), _WETH[ChainId.TESTNET] = /*#__PURE__*/new Token(ChainId.TESTNET, addresses[ChainId.TESTNET].WETH, 18, 'WCLES', 'Wrapped CLES', 'https://testnet-explore.celeschain.org'), _WETH);
+var WETH = (_WETH = {}, _WETH[ChainId.MAINNET] = /*#__PURE__*/new Token(ChainId.MAINNET, addresses[ChainId.MAINNET].WETH, 18, 'WgUSDT', 'Wrapped gUST', 'https://stablescan.xyz'), _WETH[ChainId.TESTNET] = /*#__PURE__*/new Token(ChainId.TESTNET, addresses[ChainId.TESTNET].WETH, 18, 'WCLES', 'Wrapped CLES', 'https://testnet-explore.celeschain.org'), _WETH);
 
 var _toSignificantRoundin, _toFixedRounding;
 var Decimal = /*#__PURE__*/toFormat(_Decimal);
@@ -778,7 +778,7 @@ var Pair = /*#__PURE__*/function () {
   function Pair(tokenAmountA, tokenAmountB) {
     var tokenAmounts = tokenAmountA.token.sortsBefore(tokenAmountB.token) // does safety checks
     ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
-    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'MAD-LP', 'Madness LPs');
+    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'SB-LP', 'StableSwap LPs');
     this.tokenAmounts = tokenAmounts;
   }
 
