@@ -22,7 +22,7 @@ var addresses = {
 	WUSDC: "0x911b4000D3422F482F4062a913885f7b035382Df",
 	SwapFactory: "0x885Ac56932B229E2321502CE67c76610BcAA1a6B",
 	Factory_Init_Code_Hash: "0x0eea0e053c2a252c309165dc9912ba9657d4b6bab6a551f89e70b4ad5b4e72f0",
-	SwapRouter: "0xDBaaAAB172667A748cd1D37B4B022ae249B89574"
+	SwapRouter: "0x27a4f6f7f1BDB5ADcd276247BE43bFdc0e3216a7"
 }
 };
 
@@ -49,7 +49,7 @@ var Rounding;
   Rounding[Rounding["ROUND_UP"] = 2] = "ROUND_UP";
 })(Rounding || (Rounding = {}));
 
-var DEFAULT_CHAIN_ID = ChainId.MAINNET;
+var DEFAULT_CHAIN_ID = ChainId.TESTNET;
 var FACTORY_ADDRESS = addresses[DEFAULT_CHAIN_ID].SwapFactory;
 var INIT_CODE_HASH = addresses[DEFAULT_CHAIN_ID].Factory_Init_Code_Hash;
 var MINIMUM_LIQUIDITY = /*#__PURE__*/JSBI.BigInt(1000); // exports for internal consumption
