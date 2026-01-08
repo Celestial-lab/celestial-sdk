@@ -71,9 +71,9 @@ export const WETH = {
     ChainId.MAINNET,
     addresses[ChainId.MAINNET].WETH,
     18,
-    'WCLES',
-    'Wrapped CLES',
-    'https://monadvision.com'
+    'ETH',
+    'Wrapped ETH',
+    'https://megaeth.blockscout.com'
   ),
   [ChainId.TESTNET]: new Token(
     ChainId.TESTNET,
