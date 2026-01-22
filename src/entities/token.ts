@@ -77,10 +77,10 @@ export const WETH = {
   ),
   [ChainId.TESTNET]: new Token(
     ChainId.TESTNET,
-    addresses[ChainId.TESTNET].WUSDC,
+    addresses[ChainId.TESTNET].WETH,
     18,
-    'WUSDC',
-    'Wrapped USDC',
-    'https://testnet.arcscan.app/'
+    'WETH',
+    'Wrapped ETH',
+    'https://sepolia.basescan.org/'
   )
 }

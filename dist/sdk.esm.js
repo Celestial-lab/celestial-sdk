@@ -18,8 +18,8 @@ var addresses = {
 	Factory_Init_Code_Hash: "0x350d97c480ddf143ed42f59d29c3657f513a591ec1477e15ef6903975a308f13",
 	SwapRouter: "0xAb45C766ee1d9cA8C067Ece3a02E2416776350f9"
 },
-	"5042002": {
-	WUSDC: "0x911b4000D3422F482F4062a913885f7b035382Df",
+	"84532": {
+	WETH: "0x911b4000D3422F482F4062a913885f7b035382Df",
 	SwapFactory: "0x885Ac56932B229E2321502CE67c76610BcAA1a6B",
 	Factory_Init_Code_Hash: "0x0eea0e053c2a252c309165dc9912ba9657d4b6bab6a551f89e70b4ad5b4e72f0",
 	SwapRouter: "0xf738000475810351067173391dA3A6Cbd795e9c0 "
@@ -31,7 +31,7 @@ var ChainId;
 
 (function (ChainId) {
   ChainId[ChainId["MAINNET"] = 42161] = "MAINNET";
-  ChainId[ChainId["TESTNET"] = 5042002] = "TESTNET";
+  ChainId[ChainId["TESTNET"] = 84532] = "TESTNET";
 })(ChainId || (ChainId = {}));
 
 var TradeType;
@@ -384,7 +384,7 @@ function Currency(decimals, symbol, name) {
  * The only instance of the base class `Currency`.
  */
 
-Currency.ETHER = /*#__PURE__*/new Currency(18, 'USDC', 'Arc Testnet');
+Currency.ETHER = /*#__PURE__*/new Currency(18, 'ETH', 'Base Sepolia');
 var ETHER = Currency.ETHER;
 
 var _WETH;
@@ -451,7 +451,7 @@ function currencyEquals(currencyA, currencyB) {
     return currencyA === currencyB;
   }
 }
-var WETH = (_WETH = {}, _WETH[ChainId.MAINNET] = /*#__PURE__*/new Token(ChainId.MAINNET, addresses[ChainId.MAINNET].WUSDC, 18, 'WUSDC', 'Wrapped USDC', 'https://testnet.arcscan.app/'), _WETH[ChainId.TESTNET] = /*#__PURE__*/new Token(ChainId.TESTNET, addresses[ChainId.TESTNET].WUSDC, 18, 'WUSDC', 'Wrapped USDC', 'https://testnet.arcscan.app/'), _WETH);
+var WETH = (_WETH = {}, _WETH[ChainId.MAINNET] = /*#__PURE__*/new Token(ChainId.MAINNET, addresses[ChainId.MAINNET].WUSDC, 18, 'WUSDC', 'Wrapped USDC', 'https://testnet.arcscan.app/'), _WETH[ChainId.TESTNET] = /*#__PURE__*/new Token(ChainId.TESTNET, addresses[ChainId.TESTNET].WETH, 18, 'WETH', 'Wrapped ETH', 'https://sepolia.basescan.org/'), _WETH);
 
 var _toSignificantRoundin, _toFixedRounding;
 var Decimal = /*#__PURE__*/toFormat(_Decimal);
