@@ -19,10 +19,10 @@ var addresses = {
 	SwapRouter: "0xAb45C766ee1d9cA8C067Ece3a02E2416776350f9"
 },
 	"84532": {
-	WETH: "0x911b4000D3422F482F4062a913885f7b035382Df",
-	SwapFactory: "0x885Ac56932B229E2321502CE67c76610BcAA1a6B",
-	Factory_Init_Code_Hash: "0x0eea0e053c2a252c309165dc9912ba9657d4b6bab6a551f89e70b4ad5b4e72f0",
-	SwapRouter: "0xf738000475810351067173391dA3A6Cbd795e9c0 "
+	WETH: "0x4200000000000000000000000000000000000006",
+	SwapFactory: "0x291b60E01e5118488B5745c72D2B2162D049d92C",
+	Factory_Init_Code_Hash: "0x45cab30b64e401cec57e3d486d3123ca98caa4d4646c9745faf256708ed66385",
+	SwapRouter: "0x35918fCf16E149FFfa32503E3D1ad72F5D9c70C9 "
 }
 };
 
@@ -774,7 +774,7 @@ var Pair = /*#__PURE__*/function () {
   function Pair(tokenAmountA, tokenAmountB) {
     var tokenAmounts = tokenAmountA.token.sortsBefore(tokenAmountB.token) // does safety checks
     ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
-    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'tARC-LP', 'testarc LPs');
+    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'tBase-LP', 'tBase LPs');
     this.tokenAmounts = tokenAmounts;
   }
 
