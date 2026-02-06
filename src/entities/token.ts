@@ -79,8 +79,8 @@ export const WETH = {
     ChainId.TESTNET,
     addresses[ChainId.TESTNET].WETH,
     18,
-    'WETH',
-    'Wrapped ETH',
-    'https://sepolia.basescan.org/'
+    'WCLES',
+    'Wrapped CLES',
+    'https://testnet-explorer.celeschain.xyz'
   )
 }
