@@ -17,11 +17,11 @@ var networks = require('@ethersproject/networks');
 var providers = require('@ethersproject/providers');
 
 var addresses = {
-	"8453": {
-	WETH: "0x4200000000000000000000000000000000000006",
-	SwapFactory: "0x95BB9AFBD2C370584251BAf96B97be8602Da5B7e",
+	"4217": {
+	WETH: "0x0000000000000000000000000000000000000000",
+	SwapFactory: "0x0000000000000000000000000000000000000000",
 	Factory_Init_Code_Hash: "0x350d97c480ddf143ed42f59d29c3657f513a591ec1477e15ef6903975a308f13",
-	SwapRouter: "0xAb45C766ee1d9cA8C067Ece3a02E2416776350f9"
+	SwapRouter: "0x0000000000000000000000000000000000000000"
 },
 	"22225": {
 	WETH: "0xcfc4Fa68042509a239fA33f7A559860C875dCA70",
@@ -34,7 +34,7 @@ var addresses = {
 var _SOLIDITY_TYPE_MAXIMA;
 
 (function (ChainId) {
-  ChainId[ChainId["MAINNET"] = 8453] = "MAINNET";
+  ChainId[ChainId["MAINNET"] = 4217] = "MAINNET";
   ChainId[ChainId["TESTNET"] = 22225] = "TESTNET";
 })(exports.ChainId || (exports.ChainId = {}));
 
@@ -49,7 +49,7 @@ var _SOLIDITY_TYPE_MAXIMA;
   Rounding[Rounding["ROUND_UP"] = 2] = "ROUND_UP";
 })(exports.Rounding || (exports.Rounding = {}));
 
-var DEFAULT_CHAIN_ID = exports.ChainId.TESTNET;
+var DEFAULT_CHAIN_ID = exports.ChainId.MAINNET;
 var FACTORY_ADDRESS = addresses[DEFAULT_CHAIN_ID].SwapFactory;
 var INIT_CODE_HASH = addresses[DEFAULT_CHAIN_ID].Factory_Init_Code_Hash;
 var MINIMUM_LIQUIDITY = /*#__PURE__*/JSBI.BigInt(1000); // exports for internal consumption
@@ -384,7 +384,7 @@ function Currency(decimals, symbol, name) {
  * The only instance of the base class `Currency`.
  */
 
-Currency.ETHER = /*#__PURE__*/new Currency(18, 'CLES', 'Celes Chain');
+Currency.ETHER = /*#__PURE__*/new Currency(18, 'USDC.e', 'Tempo');
 var ETHER = Currency.ETHER;
 
 var _WETH;
@@ -451,7 +451,7 @@ function currencyEquals(currencyA, currencyB) {
     return currencyA === currencyB;
   }
 }
-var WETH = (_WETH = {}, _WETH[exports.ChainId.MAINNET] = /*#__PURE__*/new Token(exports.ChainId.MAINNET, addresses[exports.ChainId.MAINNET].WETH, 18, 'WETH', 'Wrapped ETH', 'https://basescan.org/'), _WETH[exports.ChainId.TESTNET] = /*#__PURE__*/new Token(exports.ChainId.TESTNET, addresses[exports.ChainId.TESTNET].WETH, 18, 'WCLES', 'Wrapped CLES', 'https://testnet-explorer.celeschain.xyz'), _WETH);
+var WETH = (_WETH = {}, _WETH[exports.ChainId.MAINNET] = /*#__PURE__*/new Token(exports.ChainId.MAINNET, addresses[exports.ChainId.MAINNET].WETH, 18, 'WETH', 'Wrapped ETH', 'https://explore.mainnet.tempo.xyz'), _WETH[exports.ChainId.TESTNET] = /*#__PURE__*/new Token(exports.ChainId.TESTNET, addresses[exports.ChainId.TESTNET].WETH, 18, 'WCLES', 'Wrapped CLES', 'https://testnet-explorer.celeschain.xyz'), _WETH);
 
 var _toSignificantRoundin, _toFixedRounding;
 var Decimal = /*#__PURE__*/toFormat(_Decimal);
@@ -774,7 +774,7 @@ var Pair = /*#__PURE__*/function () {
   function Pair(tokenAmountA, tokenAmountB) {
     var tokenAmounts = tokenAmountA.token.sortsBefore(tokenAmountB.token) // does safety checks
     ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
-    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'test-LP', 'test LPs');
+    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'Mpp-LP', 'MppTime LPs');
     this.tokenAmounts = tokenAmounts;
   }
 

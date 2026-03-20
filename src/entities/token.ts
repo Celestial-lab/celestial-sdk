@@ -73,7 +73,7 @@ export const WETH = {
     18,
     'WETH',
     'Wrapped ETH',
-    'https://basescan.org/'
+    'https://explore.mainnet.tempo.xyz'
   ),
   [ChainId.TESTNET]: new Token(
     ChainId.TESTNET,
