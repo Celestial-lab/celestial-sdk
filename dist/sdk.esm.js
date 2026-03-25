@@ -14,9 +14,9 @@ import { getDefaultProvider } from '@ethersproject/providers';
 var addresses = {
 	"4217": {
 	WETH: "0x0000000000000000000000000000000000000000",
-	SwapFactory: "0x0000000000000000000000000000000000000000",
-	Factory_Init_Code_Hash: "0x350d97c480ddf143ed42f59d29c3657f513a591ec1477e15ef6903975a308f13",
-	SwapRouter: "0x0000000000000000000000000000000000000000"
+	SwapFactory: "0x00BC518357AB06913e87e6dc6f108C74Bb835A5B",
+	Factory_Init_Code_Hash: "0x097fb8c39aa27828504d27cc342e74635d3621b36aceea15a6a18f0a9de6b692",
+	SwapRouter: "0x7f4Fa3941DcCd9e5E90fB7a9aCA913A479b67Fe4"
 },
 	"22225": {
 	WETH: "0xcfc4Fa68042509a239fA33f7A559860C875dCA70",
@@ -774,7 +774,7 @@ var Pair = /*#__PURE__*/function () {
   function Pair(tokenAmountA, tokenAmountB) {
     var tokenAmounts = tokenAmountA.token.sortsBefore(tokenAmountB.token) // does safety checks
     ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
-    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'Mpp-LP', 'MppTime LPs');
+    this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'MPP-LP', 'MppTime LPs');
     this.tokenAmounts = tokenAmounts;
   }
 
