@@ -6,7 +6,7 @@ export type BigintIsh = JSBI | bigint | string
 
 export enum ChainId {
   MAINNET = 4217,
-  TESTNET = 22225
+  TESTNET = 688689
 }
 
 export enum TradeType {
@@ -20,7 +20,7 @@ export enum Rounding {
   ROUND_UP
 }
 
-export const DEFAULT_CHAIN_ID = ChainId.MAINNET
+export const DEFAULT_CHAIN_ID = ChainId.TESTNET
 
 export const FACTORY_ADDRESS = addresses[DEFAULT_CHAIN_ID].SwapFactory
 

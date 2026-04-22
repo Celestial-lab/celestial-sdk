@@ -77,10 +77,10 @@ export const WETH = {
   ),
   [ChainId.TESTNET]: new Token(
     ChainId.TESTNET,
-    addresses[ChainId.TESTNET].WETH,
+    addresses[ChainId.TESTNET].WPHRS,
     18,
-    'WCLES',
-    'Wrapped CLES',
-    'https://testnet-explorer.celeschain.xyz'
+    'WPHRS',
+    'Wrapped Pharos',
+    'https://pharos-testnet.socialscan.io'
   )
 }

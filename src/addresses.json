@@ -5,10 +5,10 @@
     "Factory_Init_Code_Hash": "0x097fb8c39aa27828504d27cc342e74635d3621b36aceea15a6a18f0a9de6b692",
     "SwapRouter": "0x7f4Fa3941DcCd9e5E90fB7a9aCA913A479b67Fe4"
   },
-  "22225": {
-    "WETH": "0xcfc4Fa68042509a239fA33f7A559860C875dCA70",
-    "SwapFactory": "0xfaB6CF9baE706956A19448d9d3cd1622c694901F",
-    "Factory_Init_Code_Hash": "0xeeee225fe29462ec28db53d5cd41bd63f4804845567667bd1c692666a71e5e4b",
-    "SwapRouter": "0xEC6c7EA4E52DdCB860EfD6DE48b4dCAAC05Fe0cD "
+  "688689": {
+    "WPHRS": "0x838800b758277cc111b2d48ab01e5e164f8e9471",
+    "SwapFactory": "0x1030E1DF2c9cF10700b35B4cCb4D4d0FEc977fB0",
+    "Factory_Init_Code_Hash": "0x8f3e81720db33e14925a307158d291bb5d812d5cb6c34e54ecf0b33c126eab3f",
+    "SwapRouter": "0xE4Ce4131BEC8266044386f9823b45b4cAa76f127 "
   }
 }
